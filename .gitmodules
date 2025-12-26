@@ -1,0 +1,6 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/ghi-la/base-react-project.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/ghi-la/base-express-project.git
