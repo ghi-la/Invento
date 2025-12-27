@@ -24,20 +24,23 @@ router.get('/status', (_req, res) => {
 
 router.post('/fake-login', fakeLogin);
 
+// Auth routes (public - no middleware)
+router.use('/auth', userRoutes);
+
 // Protected routes
 router.get('/protected', authMiddleware, (req: any, res) => {
   res.json({ message: 'This is a protected route', user: req.user });
 });
 
-// API routes
-router.use('/user', userRoutes);
-router.use('/products', productRoutes);
-router.use('/categories', categoryRoutes);
-router.use('/suppliers', supplierRoutes);
-router.use('/transactions', transactionRoutes);
-router.use('/orders', orderRoutes);
-router.use('/warehouses', warehouseRoutes);
-router.use('/stock-movements', stockMovementRoutes);
-router.use('/dashboard', dashboardRoutes);
+// API routes (protected)
+router.use('/user', authMiddleware, userRoutes);
+router.use('/products', authMiddleware, productRoutes);
+router.use('/categories', authMiddleware, categoryRoutes);
+router.use('/suppliers', authMiddleware, supplierRoutes);
+router.use('/transactions', authMiddleware, transactionRoutes);
+router.use('/orders', authMiddleware, orderRoutes);
+router.use('/warehouses', authMiddleware, warehouseRoutes);
+router.use('/stock-movements', authMiddleware, stockMovementRoutes);
+router.use('/dashboard', authMiddleware, dashboardRoutes);
 
 export default router;
