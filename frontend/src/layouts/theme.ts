@@ -1,44 +1,51 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
-// Keep the theme light and neutral (Sortly-like). You can tweak these later.
+const primaryMainColor = '#910029';
+const primaryLightColor = '#9b4d63ff';
+const primaryDarkColor = '#6f0019';
+const primaryContrastTextColor = '#ffffff';
+
 const InventoTheme = createTheme({
   palette: {
-    mode: 'light',
-    primary: { main: '#910029' },
-    secondary: { main: '#39404b' },
+    primary: {
+          main: primaryMainColor,
+          light: primaryLightColor,
+          dark: primaryDarkColor,
+            contrastText: primaryContrastTextColor,
+    },
+    secondary: {
+      main: '#39404b',
+    },
     background: {
-      default: '#f6f7fb',
+      default: '#ecf4f7',
       paper: '#ffffff',
     },
   },
-  shape: { borderRadius: 12 },
-  typography: {
-    fontFamily:
-      'Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
-    h3: { fontWeight: 850 },
-    h4: { fontWeight: 800 },
-    h6: { fontWeight: 750 },
-  },
   components: {
-    MuiButton: {
-      defaultProps: { disableElevation: true },
-    },
-    MuiCard: {
+    MuiAppBar: {
       styleOverrides: {
         root: {
-          border: '1px solid rgba(0,0,0,0.06)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'left',
+          padding: '1em',
+          height: '100vh',
+          justifyContent: 'space-between',
         },
       },
     },
-    MuiListItemButton: {
+    MuiListItem: {
       styleOverrides: {
         root: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(145, 0, 41, 0.08)',
+              //   border: '1px solid #e0e0e0',
+            backgroundColor: primaryLightColor,
+              borderRadius: '4px',
+          margin: '4px 0',
+          transition: 'background 0.2s',
+          '&:hover': {
+            backgroundColor: '#f5f5f5',
           },
-          '&.Mui-selected:hover': {
-            backgroundColor: 'rgba(145, 0, 41, 0.12)',
-          },
+          cursor: 'pointer',
         },
       },
     },

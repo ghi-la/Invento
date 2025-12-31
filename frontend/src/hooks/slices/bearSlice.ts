@@ -1,23 +1,25 @@
+import { bear } from "@/types/bear";
 import { createSlice } from '@reduxjs/toolkit';
 
-export type BearState = {
-  count: number;
+const INITIAL_STATE: bear = {
+    bears: 0,
 };
 
-const initialState: BearState = { count: 0 };
-
 const bearSlice = createSlice({
-  name: 'bear',
-  initialState,
-  reducers: {
-    increment(state) {
-      state.count += 1;
+    name: "bear",
+    initialState: INITIAL_STATE,
+    reducers: {
+        increasePopulation: (state) => {
+            state.bears += 1;
+        },
+        removeAllBears: (state) => {
+            state.bears = 0;
+        },
+        updateBears: (state, action) => {
+            state.bears = action.payload;
+        },
     },
-    decrement(state) {
-      state.count -= 1;
-    },
-  },
 });
 
-export const { increment, decrement } = bearSlice.actions;
+export const { increasePopulation, removeAllBears, updateBears } = bearSlice.actions;
 export default bearSlice.reducer;

@@ -1,6 +1,13 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
+export type UserType = {
+  _id?: mongoose.Types.ObjectId;
+  username: string;
+  email: string;
+  password?: string; // Optional because we may not want to expose it
+};
+
 const UserSchema = new mongoose.Schema({
   username: { type: String, unique: true, required: true },
   email: { type: String, unique: true, required: true },
@@ -16,8 +23,10 @@ UserSchema.pre('save', async function (this: any) {
 });
 
 // Compare hashed password with plain text password
-UserSchema.methods.comparePassword = async function (enteredPassword: string) {
-  return await bcrypt.compare(enteredPassword, this.password);
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string
+): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
 const User = mongoose.model('User', UserSchema);

@@ -1,18 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-
-import appReducer from './slices/appSlice';
-import bearReducer from './slices/bearSlice';
-import inventoryReducer from './slices/inventorySlice';
-import inventoryUiReducer from './slices/inventoryUiSlice';
-import authReducer from './slices/authSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import appReducer from '../hooks/slices/appSlice';
+import bearReducer from "../hooks/slices/bearSlice";
 
 export const store = configureStore({
   reducer: {
     bear: bearReducer,
     app: appReducer,
-    inventory: inventoryReducer,
-    inventoryUi: inventoryUiReducer,
-    auth: authReducer,
   },
 });
 

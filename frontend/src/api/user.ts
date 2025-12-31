@@ -1,13 +1,19 @@
 import axios from 'axios';
 
 const usersEndpoint =
-  import.meta.env.VITE_API_URL + '/auth' || 'http://localhost:5000/auth';
+  (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/auth';
 
-export const checkStatus = async () => {
+export const checkStatus = async (token: string) => {
   try {
     const response = await axios.get(`${usersEndpoint}/checkStatus`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       withCredentials: true,
     });
+    // const response = await axios.get(`${usersEndpoint}/checkStatus`, {
+    //   withCredentials: true,
+    // });
     return response.data;
   } catch (error: any) {
     console.error('Error checking user status:', error);

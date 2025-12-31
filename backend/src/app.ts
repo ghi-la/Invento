@@ -21,6 +21,8 @@ app.use(requestLogger);
 app.use(
   cors({
     origin: [
+      // Enable all origins in development
+      '*',
       // 'https://prod.example.com', // prod
       'http://localhost:5173', // dev
       'http://localhost:3000', // dev

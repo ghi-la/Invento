@@ -7,37 +7,31 @@ export const authMiddleware = (
   next: NextFunction
 ): void => {
   // Try to get token from cookies
-  let token= req.cookies?.token;
-
-  // If not in cookies, check Authorization header
-  if (!token) {
-    const authHeader = req.headers.authorization;
-    if (authHeader?.startsWith('Bearer ')) {
-      token = authHeader.split(' ')[1]; // Extract token after "Bearer"
-    }
-  }
+  let token = req.headers?.cookie;
 
   // If still no token, unauthorized
   if (!token) {
-    console.error('No token found');
-    res.status(401).json({ message: 'Unauthorized' });
-    return;
+    token = req.headers.authorization;
+    if (!token) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
   }
 
   try {
-    const decoded = jwt.verify(
-      token,
+    token = token?.split('token=')[1];
+    const decoded: any = jwt.verify(
+      token as string,
       process.env.JWT_SECRET as string
-    ) as jwt.JwtPayload;
+    );
     if (!decoded.username) {
+      console.log('Token does not contain username');
       throw new Error('Invalid token structure');
     }
     req.user = decoded; // Attach user info to request
     next();
   } catch (error) {
-    console.error('JWT verification error:', error);
-      res.status(403).json({ message: 'Invalid token' });
-      return;
+    res.status(403).json({ message: 'Invalid token' });
   }
 };
 

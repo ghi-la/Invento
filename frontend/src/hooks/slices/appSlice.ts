@@ -1,26 +1,40 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-export type AppState = {
-  // Use this to trigger refetches / refresh UI after mutations.
-  triggerReload: number;
-};
+import { appState } from '@/types/app';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: AppState = {
-  triggerReload: 0,
+const INITIAL_STATE: appState = {
+  notification: {
+    open: false,
+    autohideDuration: null,
+    message: '',
+    severity: 'info',
+  },
+  loggedUser: {
+    id: '',
+    username: '',
+    email: '',
+    role: 'user',
+  },
 };
 
 const appSlice = createSlice({
   name: 'app',
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {
-    bumpReload(state) {
-      state.triggerReload += 1;
+    sendNotification: (state, action) => {
+      state.notification = {
+        open: true,
+        ...action.payload,
+      };
     },
-    setTriggerReload(state, action: PayloadAction<number>) {
-      state.triggerReload = action.payload;
+    closeNotification: (state) => {
+      state.notification.open = false;
+    },
+    setLoggedUser: (state, action) => {
+      state.loggedUser = action.payload;
     },
   },
 });
 
-export const { bumpReload, setTriggerReload } = appSlice.actions;
+export const { sendNotification, closeNotification, setLoggedUser } = appSlice.actions;
 export default appSlice.reducer;

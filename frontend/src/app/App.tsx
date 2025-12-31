@@ -1,43 +1,64 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Navigation from '@/components/Navigation/Navigation';
 
-import AppShell from '@/layouts/AppShell/AppShell';
-import DashboardPage from '@/pages/DashboardPage';
-import HomePage from '@/pages/HomePage';
-import InventoryPage from '@/pages/InventoryPage';
-import ItemDetailPage from '@/pages/ItemDetailPage';
-import LoginPage from '@/pages/LoginPage';
-import SettingsPage from '@/pages/SettingsPage';
-import AccessDeniedPage from '@/pages/AccessDeniedPage';
-import PageNotFound from '@/pages/PageNotFound';
+import { paths } from '@/app/paths';
+import NotificationToast from '@/components/Notification/NotificationToast';
+import PageNotFound from '@/features/Errors/PageNotFound';
+import AuthMiddleware from '@/middlewares/authMiddleware';
+import { Grid } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
 
-/**
- * Routing skeleton.
- * Auth is still mocked; permissions are workspace-based and live in Redux for now.
- */
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-
-        {/* App */}
-        <Route path="/" element={<AppShell />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/inventory" element={<Navigate to="/inventory/root" replace />} />
-          <Route path="/inventory/:folderId" element={<InventoryPage />} />
-          <Route path="/items/:itemId" element={<ItemDetailPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/denied" element={<AccessDeniedPage />} />
-        </Route>
-
-        {/* Convenience */}
-        <Route path="/app" element={<Navigate to="/dashboard" replace />} />
-
-        {/* 404 */}
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <NotificationToast />
+      <BrowserRouter>
+        <AuthMiddleware />
+        <Grid container spacing={2}>
+          <Grid size={2}>
+            <Navigation />
+          </Grid>
+          <Grid size={10}>
+            <Routes>
+              <Route path="/" element={<div>Home Page</div>} />
+              {paths.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              ))}
+              {/* <Route path="/about" element={<div>About Page</div>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} /> */}
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Grid>
+        </Grid>
+      </BrowserRouter>
+      {/* <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+      <BearButtons /> */}
+    </>
   );
 }
+
+export default App;
