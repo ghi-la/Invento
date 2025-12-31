@@ -1,19 +1,18 @@
 import express from 'express';
 import {
   createProduct,
-  getAllProducts,
-  getProductById,
-  updateProduct,
   deleteProduct,
-  searchProducts,
+  getAllProducts,
   getLowStockProducts,
+  getProductById,
+  searchProducts,
+  updateProduct,
 } from '../controllers/productController.ts';
-import authMiddleware from '../middlewares/authMiddleware.ts';
 
 const router = express.Router();
 
 // Apply auth middleware to all routes
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Product CRUD operations
 router.post('/', createProduct);

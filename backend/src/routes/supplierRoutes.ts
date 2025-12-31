@@ -1,17 +1,16 @@
 import express from 'express';
 import {
   createSupplier,
+  deleteSupplier,
   getAllSuppliers,
   getSupplierById,
   updateSupplier,
-  deleteSupplier,
 } from '../controllers/supplierController.ts';
-import authMiddleware from '../middlewares/authMiddleware.ts';
 
 const router = express.Router();
 
 // Apply auth middleware to all routes
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Supplier CRUD operations
 router.post('/', createSupplier);

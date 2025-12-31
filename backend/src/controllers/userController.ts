@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import type { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 import User from '../models/mongoDB/userSchema.ts';
 
 // Register new user
@@ -103,30 +103,30 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const fakeLogin = (req: any, res: any) => {
-  const { username } = req.body;
-  if (!username) {
-    return res.status(400).json({ message: 'Username is required' });
-  }
-  // In a real app, you'd verify user credentials here
+// export const fakeLogin = (req: any, res: any) => {
+//   const { username } = req.body;
+//   if (!username) {
+//     return res.status(400).json({ message: 'Username is required' });
+//   }
+//   // In a real app, you'd verify user credentials here
 
-  // Create a real JWT token
-  const token = jwt.sign({ username }, process.env.JWT_SECRET as string, {
-    expiresIn: '1h',
-  });
+//   // Create a real JWT token
+//   const token = jwt.sign({ username }, process.env.JWT_SECRET as string, {
+//     expiresIn: '1h',
+//   });
 
-  // Set token in HTTP-only cookie
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-  });
+//   // Set token in HTTP-only cookie
+//   res.cookie('token', token, {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === 'production',
+//     sameSite: 'lax',
+//   });
 
-  // Set token in Authorization header
-  res.setHeader('Authorization', `Bearer ${token}`);
+//   // Set token in Authorization header
+//   res.setHeader('Authorization', `Bearer ${token}`);
 
-  res.json({ message: 'Login successful', token });
-};
+//   res.json({ message: 'Login successful', token });
+// };
 
 export const logout = (req: any, res: any) => {
   res.clearCookie('token');

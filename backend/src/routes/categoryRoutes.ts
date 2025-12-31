@@ -11,7 +11,7 @@ import authMiddleware from '../middlewares/authMiddleware.ts';
 const router = express.Router();
 
 // Apply auth middleware to all routes
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Category CRUD operations
 router.post('/', createCategory);

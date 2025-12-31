@@ -1,13 +1,12 @@
 import express from 'express';
-import Product from '../models/mongoDB/productSchema.ts';
 import Order from '../models/mongoDB/orderSchema.ts';
+import Product from '../models/mongoDB/productSchema.ts';
 import Transaction from '../models/mongoDB/transactionSchema.ts';
-import authMiddleware from '../middlewares/authMiddleware.ts';
 
 const router = express.Router();
 
 // Apply auth middleware to all routes
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Dashboard statistics
 router.get('/stats', async (_req, res) => {

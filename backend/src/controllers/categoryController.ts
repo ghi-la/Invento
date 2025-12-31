@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import Category from '../models/mongoDB/categorySchema.ts';
 import AuditLog from '../models/mongoDB/auditLogSchema.ts';
+import Category from '../models/mongoDB/categorySchema.ts';
 
 export const createCategory = async (req: Request & { user?: any }, res: Response): Promise<void> => {
   try {

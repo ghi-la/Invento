@@ -1,14 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-import App from './app/App'
-import { store } from './hooks/store'
-import './index.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import App from './app/App';
+import { store } from './hooks/store';
+import './index.css';
+import InventoTheme from './layouts/theme';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={InventoTheme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
     </Provider>
   </StrictMode>,
-)
+);

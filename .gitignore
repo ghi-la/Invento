@@ -1,0 +1,5 @@
+/old_frontend
+/frontend_*
+/.DS_Store
+/node_modules
+*.zip

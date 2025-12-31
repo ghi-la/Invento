@@ -1,37 +1,43 @@
-import BearButtons from '@/components/bearButtons/BearButtons'
-import { useState } from 'react'
-import reactLogo from '../assets/react.svg'
-import './App.css'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+import AppShell from '@/layouts/AppShell/AppShell';
+import DashboardPage from '@/pages/DashboardPage';
+import HomePage from '@/pages/HomePage';
+import InventoryPage from '@/pages/InventoryPage';
+import ItemDetailPage from '@/pages/ItemDetailPage';
+import LoginPage from '@/pages/LoginPage';
+import SettingsPage from '@/pages/SettingsPage';
+import AccessDeniedPage from '@/pages/AccessDeniedPage';
+import PageNotFound from '@/pages/PageNotFound';
 
+/**
+ * Routing skeleton.
+ * Auth is still mocked; permissions are workspace-based and live in Redux for now.
+ */
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <BearButtons />
-    </>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        {/* Public */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
 
-export default App
+        {/* App */}
+        <Route path="/" element={<AppShell />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/inventory" element={<Navigate to="/inventory/root" replace />} />
+          <Route path="/inventory/:folderId" element={<InventoryPage />} />
+          <Route path="/items/:itemId" element={<ItemDetailPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/denied" element={<AccessDeniedPage />} />
+        </Route>
+
+        {/* Convenience */}
+        <Route path="/app" element={<Navigate to="/dashboard" replace />} />
+
+        {/* 404 */}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

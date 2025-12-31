@@ -3,16 +3,15 @@ import {
   createOrder,
   getAllOrders,
   getOrderById,
+  getOrdersByType,
   updateOrder,
   updateOrderStatus,
-  getOrdersByType,
 } from '../controllers/orderController.ts';
-import authMiddleware from '../middlewares/authMiddleware.ts';
 
 const router = express.Router();
 
 // Apply auth middleware to all routes
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Order operations
 router.post('/', createOrder);
