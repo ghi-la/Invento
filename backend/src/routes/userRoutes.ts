@@ -3,6 +3,7 @@ import {
   checkStatus,
   getAllUsers,
   login,
+  logout,
   register,
 } from '../controllers/userController.ts';
 
@@ -12,6 +13,7 @@ const router = express.Router();
 router.post('/register', register);
 router.post('/login', login);
 router.get('/checkStatus', checkStatus);
+router.post('/logout', logout);
 
 router.get('/', (_req, res) => {
   res.send('User routes!');

@@ -1,5 +1,6 @@
 import { logoutUser } from '@/api/user';
 import { useAppSelector } from '@/hooks/hooks';
+import { triggerAppReload } from '@/hooks/slices/appSlice';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
     Box,
@@ -44,7 +45,8 @@ export default function Navigation({
   const handleLogout = () => {
     logoutUser()
       .then(() => {
-        localStorage.removeItem('token');
+          localStorage.removeItem('token');
+          dispatch(triggerAppReload());
         navigate('/login');
       })
       .catch((error) => {

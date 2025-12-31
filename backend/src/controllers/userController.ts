@@ -83,10 +83,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const logoutUser = async (
-  _req: Request,
-  res: Response
-): Promise<void> => {
+export const logout = async (_req: Request, res: Response): Promise<void> => {
   try {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
@@ -95,11 +92,7 @@ export const logoutUser = async (
   }
 };
 
-export const checkStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  // console.log('Checking user status...');
+export const checkStatus = async (req: Request, res: Response): Promise<void> => {
   try {
     let token = req.headers?.cookie;
     if (!token) {
@@ -110,11 +103,8 @@ export const checkStatus = async (
     } else {
       token = token?.split('token=')[1];
     }
-    // const token =
-    //   req.headers?.cookie || req.headers.authorization?.split(' ')[1];
-    console.log('Checking user status with token:', token);
 
-    const decoded = jwt.verify(
+    const decoded: any = jwt.verify(
       token as string,
       process.env.JWT_SECRET as string
     );

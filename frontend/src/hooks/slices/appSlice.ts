@@ -15,6 +15,7 @@ const INITIAL_STATE: appState = {
     email: '',
     role: 'user',
   },
+  triggerReload: false,
 };
 
 const appSlice = createSlice({
@@ -33,8 +34,16 @@ const appSlice = createSlice({
     setLoggedUser: (state, action) => {
       state.loggedUser = action.payload;
     },
+    triggerAppReload: (state) => {
+      state.triggerReload = !state.triggerReload;
+    },
   },
 });
 
-export const { sendNotification, closeNotification, setLoggedUser } = appSlice.actions;
+export const {
+  sendNotification,
+  closeNotification,
+  setLoggedUser,
+  triggerAppReload,
+} = appSlice.actions;
 export default appSlice.reducer;

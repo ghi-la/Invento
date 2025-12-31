@@ -22,6 +22,7 @@ const AuthMiddleware = () => {
       })
       .catch(
         (error) => {
+          dispatch(setLoggedUser(null));
           console.error('User is not authenticated:', error);
           // if (error.code === 'ERR_NETWORK') {
           //   dispatch(
