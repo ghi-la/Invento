@@ -4,26 +4,29 @@ import Dashboard from "@/features/Dashboard/Dashboard";
 import { ComponentType } from "react";
 
 type Path = {
-    path: string;
-    name: string;
-    component: ComponentType<any>;
+  path: string;
+  name: string;
+  isLoggedInRequired?: boolean;
+  component: ComponentType<any>;
 };
 
-export const paths: Path[]= [
-    {
-        path: "/dashboard",
-        name: "Dashboard",
-        component: Dashboard,
-    },
-    {
-        path: "/login",
-        name: "Login",
-        component: Login,
-    },
-    {
-        path: "/register",
-        name: "Register",
-        component: Register,
-    }
-    
+export const paths: Path[] = [
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    isLoggedInRequired: true,
+    component: Dashboard,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    isLoggedInRequired: false,
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    isLoggedInRequired: false,
+    component: Register,
+  },
 ];

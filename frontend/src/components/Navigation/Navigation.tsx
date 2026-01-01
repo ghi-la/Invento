@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { paths } from '../../app/paths';
@@ -27,7 +27,9 @@ export default function Navigation({
 }: Readonly<NavigationProps>) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedUser = useAppSelector((state) => state.app.loggedUser);
+    const loggedUser = useAppSelector((state) => state.app.loggedUser);
+    
+    const [routes, setRoutes] = React.useState(paths);
 
   // Popover state
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -53,6 +55,17 @@ export default function Navigation({
         console.error('Logout failed:', error);
       });
   };
+    
+    useEffect(() => {
+        // You can add any side effects related to navigation here if needed
+        if (loggedUser) {
+            const filteredRoutes = paths.filter(route => route.isLoggedInRequired === true);
+            setRoutes(filteredRoutes);
+        } else {
+            const filteredRoutes = paths.filter(route => route.isLoggedInRequired === false);
+            setRoutes(filteredRoutes);
+        }
+    }, [loggedUser]);
 
   return (
     <AppBar position="static" color="primary">
@@ -61,7 +74,7 @@ export default function Navigation({
           {title}
         </Typography>
         <List>
-          {paths.map((route) => (
+          {routes.map((route) => (
             <ListItem
               key={route.path}
               onClick={() => {
