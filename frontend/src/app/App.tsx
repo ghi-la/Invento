@@ -1,7 +1,7 @@
 import { paths } from '@/app/paths';
-import AppShell from '@/components/AppShell/AppShell';
 import NotificationToast from '@/components/Notification/NotificationToast';
 import PageNotFound from '@/features/Errors/PageNotFound';
+import AppShell from '@/layouts/AppShell/AppShell';
 import AuthMiddleware from '@/middlewares/authMiddleware';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
