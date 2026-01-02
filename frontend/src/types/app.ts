@@ -1,15 +1,20 @@
+import { loggedUserType } from './user';
+
+export type notificationType = {
+  open: boolean;
+  autohideDuration: number | null;
+  message: string;
+  severity: 'success' | 'error' | 'info' | 'warning';
+};
+
+export type warehouseType = {
+  id: string;
+  label: string;
+};
+
 export type appState = {
-  notification: {
-    open: boolean;
-    autohideDuration: number | null;
-    message: string;
-    severity: 'success' | 'error' | 'info' | 'warning';
-  };
-  loggedUser: {
-    id: string;
-    username: string;
-    email: string;
-    role: 'admin' | 'user';
-  };
+  notification: notificationType;
+  loggedUser: loggedUserType;
+  selectedWarehouse: warehouseType;
   triggerReload: boolean;
 };

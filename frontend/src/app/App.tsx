@@ -1,6 +1,6 @@
-import Navigation from '@/components/Navigation/Navigation';
-
 import { paths } from '@/app/paths';
+import InventoAppBar from '@/components/AppShell/AppBar/AppBar';
+import Sidebar from '@/components/AppShell/Sidebar/Sidebar';
 import NotificationToast from '@/components/Notification/NotificationToast';
 import PageNotFound from '@/features/Errors/PageNotFound';
 import AuthMiddleware from '@/middlewares/authMiddleware';
@@ -14,11 +14,14 @@ function App() {
       <NotificationToast />
       <BrowserRouter>
         <AuthMiddleware />
-        <Grid container spacing={2}>
-          <Grid size={2}>
-            <Navigation />
+        <Grid container>
+          <Grid size={12}>
+            <InventoAppBar />
           </Grid>
-          <Grid size={10}>
+          <Grid size={2.5}>
+            <Sidebar />
+          </Grid>
+          <Grid size={9.5} sx={{ padding: 2 }}>
             <Routes>
               <Route path="/" element={<div>Home Page</div>} />
               {paths.map((route) => (

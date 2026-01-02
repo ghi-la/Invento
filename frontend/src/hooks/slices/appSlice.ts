@@ -15,6 +15,10 @@ const INITIAL_STATE: appState = {
     email: '',
     role: 'user',
   },
+  selectedWarehouse: {
+    id: '',
+    label: '',
+  },
   triggerReload: false,
 };
 
@@ -33,6 +37,9 @@ const appSlice = createSlice({
     },
     setLoggedUser: (state, action) => {
       state.loggedUser = action.payload;
+    },
+    setSelectedWarehouse: (state, action) => {
+      state.selectedWarehouse = action.payload;
     },
     triggerAppReload: (state) => {
       state.triggerReload = !state.triggerReload;

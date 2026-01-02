@@ -26,7 +26,7 @@ const AuthMiddleware = () => {
       .then((response: any) => {
         dispatch(setLoggedUser(response.data));
       })
-      .catch((error) => {
+      .catch((_error) => {
         dispatch(setLoggedUser(null));
         if (!unprotectedPaths.has(location.pathname)) {
           navigate('/login');
