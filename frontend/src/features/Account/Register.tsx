@@ -1,5 +1,5 @@
-import { registerUser } from '@/api/user';
 import { sendNotification } from '@/hooks/slices/appSlice';
+import { registerUser } from '@/lib/user';
 import { Button, Container, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,15 +12,17 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-    function handleRegister(_event: any): void {
-      if (password !== confirmPassword) {
-        // You might want to dispatch a notification about the mismatch
-        dispatch(sendNotification({
+  function handleRegister(_event: any): void {
+    if (password !== confirmPassword) {
+      // You might want to dispatch a notification about the mismatch
+      dispatch(
+        sendNotification({
           severity: 'error',
           message: 'Passwords do not match.',
-        }));
-        return;
-      }
+        }),
+      );
+      return;
+    }
 
     registerUser(username, email, password)
       .then((response) => {
@@ -30,7 +32,7 @@ const Register = () => {
         console.error('Error registering user:', error);
         // You might want to dispatch a notification about the error
       });
-    
+
     // loginUser().then(() => {
     //   // Handle successful login
     // }).catch(() => {

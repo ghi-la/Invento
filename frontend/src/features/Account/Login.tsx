@@ -1,8 +1,8 @@
-import { loginUser } from "@/api/user";
-import { setLoggedUser } from "@/hooks/slices/appSlice";
-import { Button, Container, TextField } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { setLoggedUser } from '@/hooks/slices/appSlice';
+import { loginUser } from '@/lib/user';
+import { Button, Container, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {

@@ -37,7 +37,7 @@ router.get('/protected', authMiddleware, (req: any, res) => {
 // router.use('/suppliers', authMiddleware, supplierRoutes);
 // router.use('/transactions', authMiddleware, transactionRoutes);
 // router.use('/orders', authMiddleware, orderRoutes);
-// router.use('/warehouses', authMiddleware, warehouseRoutes);
+router.use('/warehouses', authMiddleware, warehouseRoutes);
 // router.use('/stock-movements', authMiddleware, stockMovementRoutes);
 // router.use('/dashboard', authMiddleware, dashboardRoutes);
 
@@ -47,7 +47,7 @@ router.use('/categories', categoryRoutes);
 router.use('/suppliers', supplierRoutes);
 router.use('/transactions', transactionRoutes);
 router.use('/orders', orderRoutes);
-router.use('/warehouses', warehouseRoutes);
+// router.use('/warehouses', warehouseRoutes);
 router.use('/stock-movements', stockMovementRoutes);
 router.use('/dashboard', dashboardRoutes);
 

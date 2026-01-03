@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { logoutUser } from '@/api/user';
 import { useAppSelector } from '@/hooks/hooks';
 import { triggerAppReload } from '@/hooks/slices/appSlice';
+import { logoutUser } from '@/lib/user';
 
 import Navigation from './Navigation';
 import Toolbox from './Toolbox';

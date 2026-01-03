@@ -1,4 +1,3 @@
-
 import { appState } from '@/types/app';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -13,11 +12,19 @@ const INITIAL_STATE: appState = {
     id: '',
     username: '',
     email: '',
-    role: 'user',
+    warehouses: [],
+    preferences: {
+      theme: 'light',
+      selectedWarehouse: {
+        _id: '',
+        name: '',
+      },
+    },
+    role: 'admin',
   },
   selectedWarehouse: {
-    id: '',
-    label: '',
+    _id: '',
+    name: '',
   },
   triggerReload: false,
 };
@@ -51,6 +58,7 @@ export const {
   sendNotification,
   closeNotification,
   setLoggedUser,
+  setSelectedWarehouse,
   triggerAppReload,
 } = appSlice.actions;
 export default appSlice.reducer;

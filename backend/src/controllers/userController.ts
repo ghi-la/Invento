@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import type { UserType } from '../models/mongoDB/userSchema.ts';
 import User from '../models/mongoDB/userSchema.ts';
+import { getWarehousesForUser } from '../utils/userHelpers.ts';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -46,14 +47,17 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const userWithoutPassword: UserType = {
+    const warehouses = await getWarehousesForUser(user._id?.toString() || '');
+
+    const userData: UserType = {
       _id: user._id,
       username: user.username,
       email: user.email,
+      warehouses,
     };
 
     // Only include minimal info in JWT
-    const tokenPayload = userWithoutPassword;
+    const tokenPayload = userData;
 
     // Create JWT
     if (!process.env.JWT_SECRET) {
@@ -74,7 +78,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({
       message: 'Login successful',
       data: {
-        ...userWithoutPassword,
+        ...userData,
       },
       token,
     });
@@ -92,7 +96,10 @@ export const logout = async (_req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const checkStatus = async (req: Request, res: Response): Promise<void> => {
+export const checkStatus = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     let token = req.headers?.cookie;
     if (!token) {
@@ -122,13 +129,16 @@ export const checkStatus = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    const userWithoutPassword: UserType = {
+    const warehouses = await getWarehousesForUser(user._id?.toString() || '');
+
+    const userData: UserType = {
       _id: user._id,
       username: user.username,
       email: user.email,
+      warehouses,
     };
 
-    res.status(200).json({ data: userWithoutPassword });
+    res.status(200).json({ data: userData });
   } catch (error: any) {
     res.status(401).json({ message: 'User not authenticated' });
   }
@@ -147,10 +157,13 @@ export const getUserById = async (
       return;
     }
 
+    const warehouses = await getWarehousesForUser(user._id?.toString() || '');
+
     const userData: UserType = {
       _id: user._id,
       username: user.username,
       email: user.email,
+      warehouses,
     };
 
     res.status(200).json({ message: 'User found', data: userData });

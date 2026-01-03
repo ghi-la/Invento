@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { checkStatus } from '@/api/user';
 import { paths } from '@/app/paths';
 import { setLoggedUser } from '@/hooks/slices/appSlice';
+import { checkStatus } from '@/lib/user';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
@@ -24,6 +24,7 @@ const AuthMiddleware = () => {
   useEffect(() => {
     checkStatus(localStorage.getItem('token') || '')
       .then((response: any) => {
+        console.log('User is authenticated:', response.data);
         dispatch(setLoggedUser(response.data));
       })
       .catch((_error) => {

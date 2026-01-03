@@ -6,6 +6,10 @@ export type UserType = {
   username: string;
   email: string;
   password?: string; // Optional because we may not want to expose it
+  warehouses?: Array<{
+    id: string;
+    name: string;
+  }>;
 };
 
 const UserSchema = new mongoose.Schema({

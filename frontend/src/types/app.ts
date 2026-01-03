@@ -8,8 +8,24 @@ export type notificationType = {
 };
 
 export type warehouseType = {
-  id: string;
-  label: string;
+  _id?: string;
+  name: string;
+  code: string;
+  // address: {
+  //   street: string;
+  //   city: string;
+  //   state: string;
+  //   country: string;
+  //   zipCode: string;
+  // };
+  // manager: { id: string; username: string; email: string } | null;
+  // capacity: number;
+  // isActive: boolean;
+  // createdBy: {
+  //   id: string;
+  //   username: string;
+  //   email: string;
+  // };
 };
 
 export type appState = {

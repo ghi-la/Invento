@@ -1,11 +1,13 @@
+import { warehouseType } from './app';
+
 export type loggedUserType = {
   id: string;
   username: string;
   email: string;
-  workspaces?: string[];
-  preferences?: {
+  warehouses?: warehouseType[];
+  preferences: {
     theme: 'light' | 'dark';
-    selectedWorkspace: string;
+    selectedWarehouse: warehouseType;
   };
   role: 'admin' | 'user';
 };
