@@ -17,7 +17,6 @@ import {
   SelectChangeEvent,
   TextField,
   Toolbar,
-  Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -86,11 +85,9 @@ export default function TopBar({
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: 0.2 }}>
+          {/* <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: 0.2 }}>
             {title}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1 }} />
+          </Typography> */}
 
           {loggedUser && (
             <TextField
@@ -113,8 +110,14 @@ export default function TopBar({
             />
           )}
 
+          <Box sx={{ flexGrow: 1 }} />
+
           {loggedUser?.warehouses && loggedUser.warehouses.length > 0 && (
-            <FormControl variant="outlined">
+            <FormControl
+              variant="standard"
+              size="medium"
+              sx={{ minWidth: 150 }}
+            >
               <InputLabel id="warehouse-select-label">Warehouse</InputLabel>
               <Select
                 labelId="warehouse-select-label"

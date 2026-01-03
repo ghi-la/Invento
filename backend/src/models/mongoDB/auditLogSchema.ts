@@ -23,7 +23,11 @@ const AuditLogSchema = new mongoose.Schema(
     entityId: { type: mongoose.Schema.Types.ObjectId },
     changes: { type: mongoose.Schema.Types.Mixed },
     // TODO: Add reference to User model
-    // performedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    performedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     ipAddress: { type: String },
     userAgent: { type: String },
   },

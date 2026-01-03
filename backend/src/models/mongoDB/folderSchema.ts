@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-const CategorySchema = new mongoose.Schema(
+const FolderSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
     description: { type: String },
-    parentCategory: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    parentFolder: { type: mongoose.Schema.Types.ObjectId, ref: 'Folder' },
     isActive: { type: Boolean, default: true },
-
+    parentWarehouse: { type: mongoose.Schema.Types.ObjectId, ref: 'Warehouse' },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -18,6 +18,6 @@ const CategorySchema = new mongoose.Schema(
   }
 );
 
-const Category = mongoose.model('Category', CategorySchema);
+const Folder = mongoose.model('Folder', FolderSchema);
 
-export default Category;
+export default Folder;

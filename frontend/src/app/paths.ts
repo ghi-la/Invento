@@ -1,7 +1,8 @@
-import Login from "@/features/Account/Login";
-import Register from "@/features/Account/Register";
-import Dashboard from "@/features/Dashboard/Dashboard";
-import { ComponentType } from "react";
+import Login from '@/features/Account/Login';
+import Register from '@/features/Account/Register';
+import Dashboard from '@/features/Dashboard/Dashboard';
+import Inventory from '@/features/Inventory/Inventory';
+import { ComponentType } from 'react';
 
 type Path = {
   path: string;
@@ -16,6 +17,12 @@ export const paths: Path[] = [
     name: 'Dashboard',
     isLoggedInRequired: true,
     component: Dashboard,
+  },
+  {
+    path: '/inventory',
+    name: 'Inventory',
+    isLoggedInRequired: true,
+    component: Inventory,
   },
   {
     path: '/login',
