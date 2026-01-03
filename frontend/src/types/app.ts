@@ -10,7 +10,7 @@ export type notificationType = {
 export type warehouseType = {
   _id?: string;
   name: string;
-  code: string;
+  code?: string;
   // address: {
   //   street: string;
   //   city: string;

@@ -1,19 +1,16 @@
-import axios from "axios";
-import { useEffect } from "react";
+import { useAppSelector } from '@/hooks/hooks';
 
 const Dashboard = () => {
-    useEffect(() => {
-        document.title = "Dashboard - Invento";
-        axios
-          .get('http://localhost:8888/protected', { withCredentials: true })
-          .then((response) => {
-            console.log('Dashboard data:', response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching dashboard data:', error);
-          });
-    }, []);
-    return <div>Dashboard</div>;
+  const selectedWarehouse = useAppSelector(
+    (state) => state.app.selectedWarehouse,
+  );
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      {selectedWarehouse && <p>Selected Warehouse: {selectedWarehouse.name}</p>}
+    </div>
+  );
 };
 
 export default Dashboard;

@@ -24,7 +24,6 @@ const AuthMiddleware = () => {
   useEffect(() => {
     checkStatus(localStorage.getItem('token') || '')
       .then((response: any) => {
-        console.log('User is authenticated:', response.data);
         dispatch(setLoggedUser(response.data));
       })
       .catch((_error) => {

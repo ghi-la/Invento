@@ -33,7 +33,7 @@ export default function TopBar({
   title,
   drawerWidth,
   onOpenMobileNav,
-}: TopBarProps) {
+}: Readonly<TopBarProps>) {
   const dispatch = useDispatch();
   const loggedUser: loggedUserType | null = useAppSelector(
     (state) => state.app.loggedUser,
@@ -48,12 +48,10 @@ export default function TopBar({
     event: SelectChangeEvent<string>,
     child?: any,
   ): void {
-    console.log('Selected warehouse change:', event.target, child);
     const selectedWarehouse: warehouseType = {
       _id: child?.key?.toString().split('.$')[1] || '',
       name: event.target.value,
     };
-    console.log('Dispatching selected warehouse:', selectedWarehouse);
     dispatch(setSelectedWarehouse(selectedWarehouse));
   }
 
@@ -64,10 +62,6 @@ export default function TopBar({
       dispatch(setSelectedWarehouse(loggedUser.warehouses[0]));
     }
   }, [loggedUser, dispatch]);
-
-  useEffect(() => {
-    console.log('LoggedUser:', loggedUser);
-  }, [loggedUser]);
 
   return (
     <>

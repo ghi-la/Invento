@@ -13,7 +13,7 @@ type AppShellProps = {
 export default function AppShell({
   children,
   title = 'Invento',
-}: AppShellProps) {
+}: Readonly<AppShellProps>) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const openMobileNav = () => setMobileOpen(true);
