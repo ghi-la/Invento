@@ -1,0 +1,317 @@
+{
+  "common": {
+    "save": "Save",
+    "saving": "Saving…",
+    "saveChanges": "Save changes",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleting": "Deleting…",
+    "back": "Back",
+    "continue": "Continue",
+    "go": "Go",
+    "loading": "Loading…",
+    "noMatches": "No matches.",
+    "lowStock": "Low stock",
+    "viewDetails": "View details",
+    "or": "or",
+    "noAccessTitle": "You don't have access to this page",
+    "noAccessBody": "Ask a warehouse admin if you need this.",
+    "fields": {
+      "name": "Name",
+      "location": "Location",
+      "description": "Description",
+      "email": "Email",
+      "password": "Password"
+    }
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "it": "Italian"
+  },
+  "nav": {
+    "warehouseLabel": "Warehouse",
+    "dashboard": "Dashboard",
+    "inventory": "Inventory",
+    "scan": "Scan",
+    "categories": "Categories",
+    "importCsv": "Import CSV",
+    "members": "Members",
+    "settings": "Settings",
+    "switchWarehouse": "Switch warehouse",
+    "signOut": "Sign out"
+  },
+  "roles": {
+    "owner": { "label": "Owner", "description": "Full control, including deleting the warehouse and managing all members." },
+    "admin": { "label": "Admin", "description": "Manage members, categories and all inventory." },
+    "editor": { "label": "Editor", "description": "Add, edit and adjust stock, but cannot manage members." },
+    "viewer": { "label": "Viewer", "description": "Read-only access to inventory and reports." }
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signInSubtitle": "Track stock across every warehouse, from any device.",
+    "signInButton": "Sign in",
+    "signingIn": "Signing in…",
+    "continueWithGoogle": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "createAccountLink": "Create one",
+    "createAccountTitle": "Create your account",
+    "createAccountSubtitle": "Set up your first warehouse in under a minute.",
+    "fullName": "Full name",
+    "passwordHelper": "At least 8 characters",
+    "createAccountButton": "Create account",
+    "creatingAccount": "Creating account…",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "errors": {
+      "nameRequired": "Enter your full name.",
+      "emailRequired": "Enter your email address.",
+      "emailInvalid": "Enter a valid email address.",
+      "passwordRequired": "Enter your password.",
+      "passwordMinLength": "Password must be at least 8 characters.",
+      "invalidCredentials": "Incorrect email or password.",
+      "createFailed": "Could not create account.",
+      "createdPleaseSignIn": "Account created — please sign in."
+    }
+  },
+  "warehouses": {
+    "title": "Your warehouses",
+    "emptyTitle": "No warehouses yet",
+    "emptyBody": "Create your first warehouse to start tracking stock.",
+    "createButton": "Create warehouse",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "memberCount_one": "{{count}} member",
+    "memberCount_other": "{{count}} members",
+    "dialogTitle": "New warehouse",
+    "locationOptional": "Location (optional)",
+    "locationPlaceholder": "e.g. Building 3, Rotterdam",
+    "descriptionOptional": "Description (optional)",
+    "create": "Create",
+    "creating": "Creating…",
+    "errors": {
+      "createFailed": "Could not create warehouse."
+    }
+  },
+  "dashboard": {
+    "subtitle": "Here's what's happening in your warehouse.",
+    "addWidget": "Add widget",
+    "customize": "Customize",
+    "done": "Done",
+    "emptyTitle": "Your dashboard is empty.",
+    "customizeButton": "Customize dashboard",
+    "addWidgetDialogTitle": "Add a widget",
+    "widgets": {
+      "quickUpdate": {
+        "title": "Quick update",
+        "description": "Search and adjust quantities without leaving the dashboard.",
+        "searchPlaceholder": "Find a product to update…"
+      },
+      "lowStock": {
+        "title": "Low stock alerts",
+        "description": "Items at or below their reorder threshold.",
+        "empty": "Nothing is low on stock right now 🎉",
+        "viewAll": "View all low stock"
+      },
+      "recentActivity": {
+        "title": "Recent activity",
+        "description": "The latest stock changes across the warehouse.",
+        "empty": "No activity yet."
+      },
+      "totalValue": {
+        "title": "Inventory value",
+        "description": "Total value on hand, at cost.",
+        "label": "Total inventory value",
+        "products": "Products",
+        "units": "Units"
+      },
+      "categoryBreakdown": {
+        "title": "By category",
+        "description": "How your inventory splits across categories.",
+        "empty": "Add products to see the breakdown."
+      }
+    }
+  },
+  "inventory": {
+    "title": "Inventory",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "searchPlaceholder": "Search name, SKU, barcode, location…",
+    "categoryLabel": "Category",
+    "allCategories": "All categories",
+    "lowStockToggle": "Low stock",
+    "noMatchTitle": "No items match",
+    "noMatchBody": "Try a different search or clear filters.",
+    "emptyTitle": "No inventory yet",
+    "emptyBody": "Add your first product, or import a CSV from another system.",
+    "lowBadge": "Low",
+    "table": {
+      "product": "Product",
+      "sku": "SKU",
+      "category": "Category",
+      "location": "Location",
+      "quantity": "Quantity"
+    }
+  },
+  "product": {
+    "name": "Product name",
+    "sku": "SKU",
+    "barcode": "Barcode",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "lowStockAt": "Low stock at",
+    "alertThreshold": "Alert threshold",
+    "location": "Location",
+    "locationPlaceholder": "Aisle / bin",
+    "itemsPerBox": "Items per box",
+    "itemsPerBoxHelper": "Items in each box",
+    "itemsPerBoxSummary": "{{quantity}} box = {{total}} items",
+    "costPrice": "Cost price",
+    "sellPrice": "Sell price",
+    "notes": "Notes",
+    "newProductTitle": "New product",
+    "addProductButton": "Add product",
+    "editTitle": "Edit product",
+    "deleteConfirmTitle": "Delete this product?",
+    "deleteConfirmBody": "This removes \"{{name}}\" and its history. This can't be undone.",
+    "lowStockAlertAt": "Low stock alert at {{quantity}}",
+    "recentActivity": "Recent activity",
+    "noActivity": "No stock changes yet.",
+    "errors": {
+      "saveFailed": "Could not save product.",
+      "saveChangesFailed": "Could not save changes."
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "newButton": "New category",
+    "newTitle": "New category",
+    "editTitle": "Edit category",
+    "emptyTitle": "No categories yet",
+    "emptyBody": "Group your inventory to make it easier to browse and filter.",
+    "productCount_one": "{{count}} product",
+    "productCount_other": "{{count}} products",
+    "deleteConfirmTitle": "Delete \"{{name}}\"?",
+    "deleteConfirmBody": "You'll need to move or delete its products and subcategories first if it has any.",
+    "parentLabel": "Parent category (optional)",
+    "noParent": "None — top level",
+    "selectLabel": "Category",
+    "searchOrCreate": "Search or create…",
+    "createOption": "+ Create \"{{name}}\"",
+    "errors": {
+      "saveFailed": "Could not save category.",
+      "deleteFailed": "Could not delete category."
+    }
+  },
+  "members": {
+    "title": "Members",
+    "addButton": "Add member",
+    "adding": "Adding…",
+    "subtitle": "Control who can view and edit this warehouse.",
+    "you": " (you)",
+    "roleExplainerTitle": "What each role can do",
+    "addDialogTitle": "Add a member",
+    "addDialogBody": "They need an existing account. Search by name or email.",
+    "nameOrEmailLabel": "Name or email",
+    "errors": {
+      "changeRoleFailed": "Could not change role.",
+      "addFailed": "Could not add member."
+    }
+  },
+  "settings": {
+    "title": "Warehouse settings",
+    "saved": "Saved.",
+    "accentColor": "Accent color",
+    "dangerZoneTitle": "Danger zone",
+    "dangerZoneBody": "Deleting a warehouse permanently removes all its products, categories, members and history.",
+    "deleteButton": "Delete warehouse",
+    "deleteConfirmTitle": "Delete \"{{name}}\"?",
+    "deleteConfirmBody": "This can't be undone. Type the warehouse name to confirm.",
+    "deletePermanently": "Delete permanently",
+    "errors": {
+      "saveFailed": "Could not save."
+    }
+  },
+  "scan": {
+    "title": "Scan",
+    "cameraError": "Couldn't access the camera. You can type the code instead.",
+    "barcodeSkuLabel": "Barcode / SKU",
+    "typeInstead": "Type it in instead",
+    "lookingUp": "Looking up code…",
+    "scanNext": "Scan next",
+    "noMatchTitle": "No match for this code",
+    "noMatchBody": "Nothing in this warehouse has the barcode",
+    "addAsNewProduct": "Add as new product",
+    "scanAgain": "Scan again"
+  },
+  "import": {
+    "pageTitle": "Import from CSV",
+    "pageSubtitle": "Bring in inventory exported from another system.",
+    "steps": {
+      "upload": "Upload",
+      "mapColumns": "Map columns",
+      "review": "Review",
+      "done": "Done"
+    },
+    "fields": {
+      "name": "Product name",
+      "sku": "SKU",
+      "barcode": "Barcode",
+      "category": "Category",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "minStockLevel": "Low stock threshold",
+      "location": "Location / bin",
+      "costPrice": "Cost price",
+      "sellPrice": "Sell price",
+      "description": "Description"
+    },
+    "uploadPrompt": "Click to choose a CSV file",
+    "uploadHint": "Exported from Sortly, Zoho Inventory, Excel, Google Sheets, or any other tool",
+    "matchColumnsTitle": "Match your columns",
+    "matchColumnsSubtitle": "{{fileName}} · {{count}} rows. We guessed a few — double check before continuing.",
+    "dontImport": "Don't import",
+    "previewTitle": "Preview",
+    "previewCount": "Showing {{shown}} of {{total}} rows.",
+    "conflictTitle": "If a SKU or barcode already exists…",
+    "modeUpsert": "Update the existing product's quantity and details",
+    "modeCreate": "Always create a new product",
+    "importingProgress": "Importing… {{progress}}%",
+    "importButton_one": "Import {{count}} row",
+    "importButton_other": "Import {{count}} rows",
+    "completeTitle": "Import complete",
+    "completeSummary": "{{created}} product(s) created · {{updated}} updated",
+    "completeSummaryWithCategories": "{{created}} product(s) created · {{updated}} updated · {{categories}} new categories",
+    "skippedWarning": "{{count}} row(s) skipped (missing a product name).",
+    "importAnother": "Import another file",
+    "errors": {
+      "emptyFile": "That file doesn't have any rows.",
+      "invalidFile": "Couldn't read that file. Make sure it's a valid CSV.",
+      "importFailed": "Import failed."
+    }
+  },
+  "units": {
+    "pcs": "Pieces (pcs)",
+    "box": "Box",
+    "pack": "Pack",
+    "case": "Case",
+    "pallet": "Pallet",
+    "kg": "Kilograms (kg)",
+    "g": "Grams (g)",
+    "l": "Liters (l)",
+    "ml": "Milliliters (ml)",
+    "m": "Meters (m)",
+    "short": {
+      "pcs": "pcs",
+      "box": "box",
+      "pack": "pack",
+      "case": "case",
+      "pallet": "pallet",
+      "kg": "kg",
+      "g": "g",
+      "l": "l",
+      "ml": "ml",
+      "m": "m"
+    }
+  }
+}

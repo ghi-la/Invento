@@ -1,0 +1,36 @@
+{
+  "name": "warehouse-inventory",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/x-charts": "^7.18.0",
+    "bcryptjs": "^2.4.3",
+    "date-fns": "^3.6.0",
+    "html5-qrcode": "^2.3.8",
+    "i18next": "^26.3.6",
+    "mongoose": "^8.6.3",
+    "next": "14.2.35",
+    "next-auth": "^4.24.7",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-grid-layout": "^1.4.4",
+    "react-i18next": "^17.0.11",
+    "swr": "^2.2.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.15"
+  }
+}

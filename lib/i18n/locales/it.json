@@ -1,0 +1,317 @@
+{
+  "common": {
+    "save": "Salva",
+    "saving": "Salvataggio…",
+    "saveChanges": "Salva modifiche",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "deleting": "Eliminazione…",
+    "back": "Indietro",
+    "continue": "Continua",
+    "go": "Vai",
+    "loading": "Caricamento…",
+    "noMatches": "Nessun risultato.",
+    "lowStock": "Scorte basse",
+    "viewDetails": "Vedi dettagli",
+    "or": "oppure",
+    "noAccessTitle": "Non hai accesso a questa pagina",
+    "noAccessBody": "Chiedi a un amministratore del magazzino se ti serve.",
+    "fields": {
+      "name": "Nome",
+      "location": "Posizione",
+      "description": "Descrizione",
+      "email": "Email",
+      "password": "Password"
+    }
+  },
+  "language": {
+    "label": "Lingua",
+    "en": "Inglese",
+    "it": "Italiano"
+  },
+  "nav": {
+    "warehouseLabel": "Magazzino",
+    "dashboard": "Dashboard",
+    "inventory": "Inventario",
+    "scan": "Scansione",
+    "categories": "Categorie",
+    "importCsv": "Importa CSV",
+    "members": "Membri",
+    "settings": "Impostazioni",
+    "switchWarehouse": "Cambia magazzino",
+    "signOut": "Esci"
+  },
+  "roles": {
+    "owner": { "label": "Proprietario", "description": "Controllo completo, inclusa l'eliminazione del magazzino e la gestione di tutti i membri." },
+    "admin": { "label": "Amministratore", "description": "Gestisce membri, categorie e tutto l'inventario." },
+    "editor": { "label": "Editor", "description": "Aggiunge, modifica e regola le scorte, ma non può gestire i membri." },
+    "viewer": { "label": "Visualizzatore", "description": "Accesso in sola lettura a inventario e report." }
+  },
+  "auth": {
+    "signInTitle": "Accedi",
+    "signInSubtitle": "Tieni traccia delle scorte in ogni magazzino, da qualsiasi dispositivo.",
+    "signInButton": "Accedi",
+    "signingIn": "Accesso in corso…",
+    "continueWithGoogle": "Continua con Google",
+    "noAccount": "Non hai un account?",
+    "createAccountLink": "Creane uno",
+    "createAccountTitle": "Crea il tuo account",
+    "createAccountSubtitle": "Configura il tuo primo magazzino in meno di un minuto.",
+    "fullName": "Nome completo",
+    "passwordHelper": "Almeno 8 caratteri",
+    "createAccountButton": "Crea account",
+    "creatingAccount": "Creazione account…",
+    "alreadyHaveAccount": "Hai già un account?",
+    "signInLink": "Accedi",
+    "errors": {
+      "nameRequired": "Inserisci il tuo nome completo.",
+      "emailRequired": "Inserisci il tuo indirizzo email.",
+      "emailInvalid": "Inserisci un indirizzo email valido.",
+      "passwordRequired": "Inserisci la tua password.",
+      "passwordMinLength": "La password deve contenere almeno 8 caratteri.",
+      "invalidCredentials": "Email o password non corretti.",
+      "createFailed": "Impossibile creare l'account.",
+      "createdPleaseSignIn": "Account creato — effettua l'accesso."
+    }
+  },
+  "warehouses": {
+    "title": "I tuoi magazzini",
+    "emptyTitle": "Nessun magazzino ancora",
+    "emptyBody": "Crea il tuo primo magazzino per iniziare a tenere traccia delle scorte.",
+    "createButton": "Crea magazzino",
+    "itemCount_one": "{{count}} articolo",
+    "itemCount_other": "{{count}} articoli",
+    "memberCount_one": "{{count}} membro",
+    "memberCount_other": "{{count}} membri",
+    "dialogTitle": "Nuovo magazzino",
+    "locationOptional": "Posizione (opzionale)",
+    "locationPlaceholder": "es. Edificio 3, Rotterdam",
+    "descriptionOptional": "Descrizione (opzionale)",
+    "create": "Crea",
+    "creating": "Creazione…",
+    "errors": {
+      "createFailed": "Impossibile creare il magazzino."
+    }
+  },
+  "dashboard": {
+    "subtitle": "Ecco cosa succede nel tuo magazzino.",
+    "addWidget": "Aggiungi widget",
+    "customize": "Personalizza",
+    "done": "Fatto",
+    "emptyTitle": "La tua dashboard è vuota.",
+    "customizeButton": "Personalizza dashboard",
+    "addWidgetDialogTitle": "Aggiungi un widget",
+    "widgets": {
+      "quickUpdate": {
+        "title": "Modifica rapida",
+        "description": "Cerca e modifica le quantità senza lasciare la dashboard.",
+        "searchPlaceholder": "Cerca un prodotto da aggiornare…"
+      },
+      "lowStock": {
+        "title": "Avvisi scorte basse",
+        "description": "Articoli al di sotto della soglia di riordino.",
+        "empty": "Nessun articolo con scorte basse al momento 🎉",
+        "viewAll": "Vedi tutte le scorte basse"
+      },
+      "recentActivity": {
+        "title": "Attività recente",
+        "description": "Le ultime variazioni di scorte nel magazzino.",
+        "empty": "Nessuna attività ancora."
+      },
+      "totalValue": {
+        "title": "Valore inventario",
+        "description": "Valore totale disponibile, al costo.",
+        "label": "Valore totale inventario",
+        "products": "Prodotti",
+        "units": "Unità"
+      },
+      "categoryBreakdown": {
+        "title": "Per categoria",
+        "description": "Come si distribuisce l'inventario tra le categorie.",
+        "empty": "Aggiungi prodotti per vedere la ripartizione."
+      }
+    }
+  },
+  "inventory": {
+    "title": "Inventario",
+    "itemCount_one": "{{count}} articolo",
+    "itemCount_other": "{{count}} articoli",
+    "searchPlaceholder": "Cerca nome, SKU, codice a barre, posizione…",
+    "categoryLabel": "Categoria",
+    "allCategories": "Tutte le categorie",
+    "lowStockToggle": "Scorte basse",
+    "noMatchTitle": "Nessun articolo corrisponde",
+    "noMatchBody": "Prova una ricerca diversa o rimuovi i filtri.",
+    "emptyTitle": "Nessun inventario ancora",
+    "emptyBody": "Aggiungi il tuo primo prodotto, oppure importa un CSV da un altro sistema.",
+    "lowBadge": "Bassa",
+    "table": {
+      "product": "Prodotto",
+      "sku": "SKU",
+      "category": "Categoria",
+      "location": "Posizione",
+      "quantity": "Quantità"
+    }
+  },
+  "product": {
+    "name": "Nome prodotto",
+    "sku": "SKU",
+    "barcode": "Codice a barre",
+    "quantity": "Quantità",
+    "unit": "Unità",
+    "lowStockAt": "Scorte basse a",
+    "alertThreshold": "Soglia di avviso",
+    "location": "Posizione",
+    "locationPlaceholder": "Corsia / scaffale",
+    "itemsPerBox": "Articoli per scatola",
+    "itemsPerBoxHelper": "Articoli in ogni scatola",
+    "itemsPerBoxSummary": "{{quantity}} scatole = {{total}} articoli",
+    "costPrice": "Prezzo di costo",
+    "sellPrice": "Prezzo di vendita",
+    "notes": "Note",
+    "newProductTitle": "Nuovo prodotto",
+    "addProductButton": "Aggiungi prodotto",
+    "editTitle": "Modifica prodotto",
+    "deleteConfirmTitle": "Eliminare questo prodotto?",
+    "deleteConfirmBody": "Questo rimuove \"{{name}}\" e la sua cronologia. L'operazione non può essere annullata.",
+    "lowStockAlertAt": "Avviso scorte basse a {{quantity}}",
+    "recentActivity": "Attività recente",
+    "noActivity": "Nessuna variazione di scorte ancora.",
+    "errors": {
+      "saveFailed": "Impossibile salvare il prodotto.",
+      "saveChangesFailed": "Impossibile salvare le modifiche."
+    }
+  },
+  "categories": {
+    "title": "Categorie",
+    "newButton": "Nuova categoria",
+    "newTitle": "Nuova categoria",
+    "editTitle": "Modifica categoria",
+    "emptyTitle": "Nessuna categoria ancora",
+    "emptyBody": "Raggruppa il tuo inventario per sfogliarlo e filtrarlo più facilmente.",
+    "productCount_one": "{{count}} prodotto",
+    "productCount_other": "{{count}} prodotti",
+    "deleteConfirmTitle": "Eliminare \"{{name}}\"?",
+    "deleteConfirmBody": "Dovrai prima spostare o eliminare i suoi prodotti e sottocategorie, se presenti.",
+    "parentLabel": "Categoria principale (opzionale)",
+    "noParent": "Nessuna — livello superiore",
+    "selectLabel": "Categoria",
+    "searchOrCreate": "Cerca o crea…",
+    "createOption": "+ Crea \"{{name}}\"",
+    "errors": {
+      "saveFailed": "Impossibile salvare la categoria.",
+      "deleteFailed": "Impossibile eliminare la categoria."
+    }
+  },
+  "members": {
+    "title": "Membri",
+    "addButton": "Aggiungi membro",
+    "adding": "Aggiunta in corso…",
+    "subtitle": "Controlla chi può visualizzare e modificare questo magazzino.",
+    "you": " (tu)",
+    "roleExplainerTitle": "Cosa può fare ogni ruolo",
+    "addDialogTitle": "Aggiungi un membro",
+    "addDialogBody": "Deve avere già un account. Cerca per nome o email.",
+    "nameOrEmailLabel": "Nome o email",
+    "errors": {
+      "changeRoleFailed": "Impossibile cambiare il ruolo.",
+      "addFailed": "Impossibile aggiungere il membro."
+    }
+  },
+  "settings": {
+    "title": "Impostazioni magazzino",
+    "saved": "Salvato.",
+    "accentColor": "Colore distintivo",
+    "dangerZoneTitle": "Zona pericolosa",
+    "dangerZoneBody": "Eliminare un magazzino rimuove definitivamente tutti i suoi prodotti, categorie, membri e cronologia.",
+    "deleteButton": "Elimina magazzino",
+    "deleteConfirmTitle": "Eliminare \"{{name}}\"?",
+    "deleteConfirmBody": "L'operazione non può essere annullata. Digita il nome del magazzino per confermare.",
+    "deletePermanently": "Elimina definitivamente",
+    "errors": {
+      "saveFailed": "Impossibile salvare."
+    }
+  },
+  "scan": {
+    "title": "Scansione",
+    "cameraError": "Impossibile accedere alla fotocamera. Puoi digitare il codice.",
+    "barcodeSkuLabel": "Codice a barre / SKU",
+    "typeInstead": "Digita il codice",
+    "lookingUp": "Ricerca del codice…",
+    "scanNext": "Scansiona successivo",
+    "noMatchTitle": "Nessuna corrispondenza per questo codice",
+    "noMatchBody": "Nessun articolo in questo magazzino ha questo codice a barre",
+    "addAsNewProduct": "Aggiungi come nuovo prodotto",
+    "scanAgain": "Scansiona di nuovo"
+  },
+  "import": {
+    "pageTitle": "Importa da CSV",
+    "pageSubtitle": "Importa l'inventario esportato da un altro sistema.",
+    "steps": {
+      "upload": "Carica",
+      "mapColumns": "Associa colonne",
+      "review": "Verifica",
+      "done": "Fatto"
+    },
+    "fields": {
+      "name": "Nome prodotto",
+      "sku": "SKU",
+      "barcode": "Codice a barre",
+      "category": "Categoria",
+      "quantity": "Quantità",
+      "unit": "Unità",
+      "minStockLevel": "Soglia scorte basse",
+      "location": "Posizione / scaffale",
+      "costPrice": "Prezzo di costo",
+      "sellPrice": "Prezzo di vendita",
+      "description": "Descrizione"
+    },
+    "uploadPrompt": "Clicca per scegliere un file CSV",
+    "uploadHint": "Esportato da Sortly, Zoho Inventory, Excel, Google Sheets o qualsiasi altro strumento",
+    "matchColumnsTitle": "Associa le tue colonne",
+    "matchColumnsSubtitle": "{{fileName}} · {{count}} righe. Abbiamo indovinato alcune associazioni — verificale prima di continuare.",
+    "dontImport": "Non importare",
+    "previewTitle": "Anteprima",
+    "previewCount": "Visualizzazione di {{shown}} righe su {{total}}.",
+    "conflictTitle": "Se uno SKU o codice a barre esiste già…",
+    "modeUpsert": "Aggiorna quantità e dettagli del prodotto esistente",
+    "modeCreate": "Crea sempre un nuovo prodotto",
+    "importingProgress": "Importazione… {{progress}}%",
+    "importButton_one": "Importa {{count}} riga",
+    "importButton_other": "Importa {{count}} righe",
+    "completeTitle": "Importazione completata",
+    "completeSummary": "{{created}} prodotto/i creato/i · {{updated}} aggiornato/i",
+    "completeSummaryWithCategories": "{{created}} prodotto/i creato/i · {{updated}} aggiornato/i · {{categories}} nuove categorie",
+    "skippedWarning": "{{count}} riga/e saltata/e (nome prodotto mancante).",
+    "importAnother": "Importa un altro file",
+    "errors": {
+      "emptyFile": "Quel file non contiene righe.",
+      "invalidFile": "Impossibile leggere il file. Assicurati che sia un CSV valido.",
+      "importFailed": "Importazione non riuscita."
+    }
+  },
+  "units": {
+    "pcs": "Pezzi (pz)",
+    "box": "Scatola",
+    "pack": "Confezione",
+    "case": "Cassa",
+    "pallet": "Pallet",
+    "kg": "Chilogrammi (kg)",
+    "g": "Grammi (g)",
+    "l": "Litri (l)",
+    "ml": "Millilitri (ml)",
+    "m": "Metri (m)",
+    "short": {
+      "pcs": "pz",
+      "box": "scatola",
+      "pack": "conf.",
+      "case": "cassa",
+      "pallet": "pallet",
+      "kg": "kg",
+      "g": "g",
+      "l": "l",
+      "ml": "ml",
+      "m": "m"
+    }
+  }
+}
