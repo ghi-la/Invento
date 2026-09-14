@@ -4,6 +4,7 @@ import { dbConnect } from "@/lib/mongodb";
 import Invitation from "@/lib/models/Invitation";
 import { requireRole } from "@/lib/apiAuth";
 import { assignableRoles } from "@/lib/permissions";
+import { listInvitations } from "@/lib/data/invitations";
 
 const INVITE_LIFETIME_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -15,24 +16,8 @@ export async function GET(req, { params }) {
   const auth = await requireRole(params.id, "admin");
   if (auth.error) return auth.error;
 
-  await dbConnect();
-  const invitations = await Invitation.find({
-    warehouse: params.id,
-    expiresAt: { $gt: new Date() },
-  })
-    .populate("createdBy", "name")
-    .sort({ createdAt: -1 })
-    .lean();
-
-  return NextResponse.json({
-    invitations: invitations.map((inv) => ({
-      id: inv._id.toString(),
-      token: inv.token,
-      role: inv.role,
-      expiresAt: inv.expiresAt,
-      createdByName: inv.createdBy?.name || "",
-    })),
-  });
+  const invitations = await listInvitations(params.id);
+  return NextResponse.json({ invitations });
 }
 
 export async function POST(req, { params }) {

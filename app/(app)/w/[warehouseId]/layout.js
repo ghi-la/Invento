@@ -12,13 +12,11 @@ export default async function WarehouseLayout({ children, params }) {
   if (!session?.user?.id) redirect("/login");
 
   await dbConnect();
-  const membership = await Membership.findOne({
-    warehouse: params.warehouseId,
-    user: session.user.id,
-  }).lean();
+  const [membership, warehouseDoc] = await Promise.all([
+    Membership.findOne({ warehouse: params.warehouseId, user: session.user.id }).lean(),
+    Warehouse.findById(params.warehouseId).lean(),
+  ]);
   if (!membership) notFound();
-
-  const warehouseDoc = await Warehouse.findById(params.warehouseId).lean();
   if (!warehouseDoc) notFound();
 
   const warehouse = {

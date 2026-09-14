@@ -5,6 +5,7 @@ import Product from "@/lib/models/Product";
 import StockMovement from "@/lib/models/StockMovement";
 import { requireRole } from "@/lib/apiAuth";
 import { deleteBlobIfOwned } from "@/lib/blob";
+import { getProductDetail } from "@/lib/data/product";
 
 // A cold serverless invocation establishing a fresh MongoDB connection can
 // occasionally outrun the platform's default function timeout; give it more room.
@@ -31,33 +32,10 @@ export async function GET(req, { params }) {
   const auth = await requireRole(params.id, "viewer");
   if (auth.error) return auth.error;
 
-  await dbConnect();
-  const product = await Product.findOne({ _id: params.productId, warehouse: params.id })
-    .populate("category", "name color")
-    .lean();
+  const product = await getProductDetail(params.id, params.productId, auth.membership.role);
   if (!product) return NextResponse.json({ error: "Product not found." }, { status: 404 });
 
-  return NextResponse.json({
-    id: product._id.toString(),
-    name: product.name,
-    sku: product.sku,
-    barcode: product.barcode,
-    description: product.description,
-    category: product.category
-      ? { id: product.category._id.toString(), name: product.category.name, color: product.category.color }
-      : null,
-    unit: product.unit,
-    itemsPerBox: product.itemsPerBox,
-    quantity: product.quantity,
-    minStockLevel: product.minStockLevel,
-    costPrice: product.costPrice,
-    sellPrice: product.sellPrice,
-    location: product.location,
-    imageUrl: product.imageUrl,
-    notes: product.notes,
-    lowStock: product.quantity <= product.minStockLevel,
-    myRole: auth.membership.role,
-  });
+  return NextResponse.json(product);
 }
 
 export async function PATCH(req, { params }) {

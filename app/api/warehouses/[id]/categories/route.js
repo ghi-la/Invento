@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { dbConnect } from "@/lib/mongodb";
 import Category from "@/lib/models/Category";
-import Product from "@/lib/models/Product";
 import { requireRole } from "@/lib/apiAuth";
+import { listCategories } from "@/lib/data/categories";
 
 const createSchema = z.object({
   name: z.string().trim().min(1, "Name is required.").max(80),
@@ -15,25 +15,8 @@ export async function GET(req, { params }) {
   const auth = await requireRole(params.id, "viewer");
   if (auth.error) return auth.error;
 
-  await dbConnect();
-  const categories = await Category.find({ warehouse: params.id }).sort({ name: 1 }).lean();
-
-  // Per-category product counts (scoped to this warehouse)
-  const counts = await Product.aggregate([
-    { $match: { warehouse: auth.membership.warehouse, category: { $ne: null } } },
-    { $group: { _id: "$category", count: { $sum: 1 } } },
-  ]);
-  const countMap = Object.fromEntries(counts.map((c) => [c._id?.toString(), c.count]));
-
-  return NextResponse.json({
-    categories: categories.map((c) => ({
-      id: c._id.toString(),
-      name: c.name,
-      parent: c.parent ? c.parent.toString() : null,
-      color: c.color,
-      productCount: countMap[c._id.toString()] || 0,
-    })),
-  });
+  const categories = await listCategories(params.id);
+  return NextResponse.json({ categories });
 }
 
 export async function POST(req, { params }) {

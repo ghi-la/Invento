@@ -5,6 +5,7 @@ import Membership from "@/lib/models/Membership";
 import User from "@/lib/models/User";
 import { requireRole } from "@/lib/apiAuth";
 import { assignableRoles } from "@/lib/permissions";
+import { listMembers } from "@/lib/data/members";
 
 const addSchema = z.object({
   email: z.string().trim().toLowerCase().email("Enter a valid email."),
@@ -15,24 +16,7 @@ export async function GET(req, { params }) {
   const auth = await requireRole(params.id, "viewer");
   if (auth.error) return auth.error;
 
-  await dbConnect();
-  const memberships = await Membership.find({ warehouse: params.id })
-    .populate("user", "name email image")
-    .sort({ createdAt: 1 })
-    .lean();
-
-  const members = memberships
-    .filter((m) => m.user)
-    .map((m) => ({
-      membershipId: m._id.toString(),
-      userId: m.user._id.toString(),
-      name: m.user.name,
-      email: m.user.email,
-      image: m.user.image,
-      role: m.role,
-      isSelf: m.user._id.toString() === auth.user.id,
-    }));
-
+  const members = await listMembers(params.id, auth.user.id);
   return NextResponse.json({ members, myRole: auth.membership.role });
 }
 

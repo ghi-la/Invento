@@ -10,6 +10,7 @@ import DashboardLayout from "@/lib/models/DashboardLayout";
 import Invitation from "@/lib/models/Invitation";
 import { requireRole } from "@/lib/apiAuth";
 import { CURRENCY_CODES } from "@/lib/currency";
+import { getWarehouseSettings } from "@/lib/data/warehouse";
 
 const updateSchema = z.object({
   name: z.string().trim().min(1).max(120).optional(),
@@ -23,19 +24,10 @@ export async function GET(req, { params }) {
   const auth = await requireRole(params.id, "viewer");
   if (auth.error) return auth.error;
 
-  await dbConnect();
-  const warehouse = await Warehouse.findById(params.id).lean();
+  const warehouse = await getWarehouseSettings(params.id);
   if (!warehouse) return NextResponse.json({ error: "Warehouse not found." }, { status: 404 });
 
-  return NextResponse.json({
-    id: warehouse._id.toString(),
-    name: warehouse.name,
-    description: warehouse.description,
-    location: warehouse.location,
-    color: warehouse.color,
-    currency: warehouse.currency || "USD",
-    role: auth.membership.role,
-  });
+  return NextResponse.json({ ...warehouse, role: auth.membership.role });
 }
 
 export async function PATCH(req, { params }) {
