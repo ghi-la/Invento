@@ -23,10 +23,14 @@ export async function POST(req, { params }) {
     return NextResponse.json({ error: "Image is too large." }, { status: 400 });
   }
 
-  const blob = await put(`products/${params.id}/${crypto.randomUUID()}.jpg`, file, {
-    access: "public",
-    contentType: file.type,
-  });
-
-  return NextResponse.json({ url: blob.url });
+  try {
+    const blob = await put(`products/${params.id}/${crypto.randomUUID()}.jpg`, file, {
+      access: "public",
+      contentType: file.type,
+    });
+    return NextResponse.json({ url: blob.url });
+  } catch (err) {
+    console.error("Blob upload failed:", err);
+    return NextResponse.json({ error: "Upload failed. Please try again." }, { status: 500 });
+  }
 }

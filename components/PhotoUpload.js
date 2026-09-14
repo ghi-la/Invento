@@ -28,7 +28,7 @@ export default function PhotoUpload({ warehouseId, value, onChange }) {
         method: "POST",
         body: form,
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || t("product.photo.errors.uploadFailed"));
       onChange(data.url);
     } catch (err) {
