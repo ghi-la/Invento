@@ -225,6 +225,22 @@
     "errors": {
       "changeRoleFailed": "Could not change role.",
       "addFailed": "Could not add member."
+    },
+    "invitations": {
+      "title": "Invite links",
+      "subtitle": "Share a link to invite someone by role. You can revoke it any time.",
+      "newButton": "New invite link",
+      "creating": "Creating…",
+      "empty": "No active invite links.",
+      "createDialogTitle": "Create invite link",
+      "createDialogBody": "Anyone with this link can join as the selected role.",
+      "copy": "Copy link",
+      "revoke": "Revoke",
+      "expiresOn": "Expires {{date}}",
+      "errors": {
+        "createFailed": "Could not create invite link.",
+        "revokeFailed": "Could not revoke invite link."
+      }
     }
   },
   "settings": {
@@ -321,6 +337,23 @@
       "l": "l",
       "ml": "ml",
       "m": "m"
+    }
+  },
+  "invite": {
+    "loading": "Loading invite…",
+    "notFoundTitle": "Invite not found",
+    "notFoundBody": "This invite link is invalid. Ask the person who sent it for a new one.",
+    "expiredTitle": "Invite expired",
+    "expiredBody": "This invite link has expired. Ask for a new one.",
+    "invitedTitle": "You're invited",
+    "invitedBody": "You've been invited to join {{warehouse}} as {{role}}.",
+    "loginButton": "Log in to accept",
+    "signupButton": "Create an account",
+    "acceptButton": "Accept invite",
+    "accepting": "Joining…",
+    "declineButton": "Decline",
+    "errors": {
+      "acceptFailed": "Could not accept invite."
     }
   }
 }

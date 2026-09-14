@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import {
   Box,
@@ -20,8 +20,17 @@ import { isValidEmail } from "@/lib/validation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function RegisterPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegisterForm />
+    </Suspense>
+  );
+}
+
+function RegisterForm() {
   const { t } = useTranslation();
   const router = useRouter();
+  const params = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +69,7 @@ export default function RegisterPage() {
 
       const signInRes = await signIn("credentials", { email, password, redirect: false });
       if (signInRes?.error) throw new Error(t("auth.errors.createdPleaseSignIn"));
-      router.push("/warehouses");
+      router.push(params.get("callbackUrl") || "/warehouses");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -166,7 +175,10 @@ export default function RegisterPage() {
 
         <Typography variant="body2" align="center" sx={{ mt: 3 }} color="text.secondary">
           {t("auth.alreadyHaveAccount")}{" "}
-          <Link href="/login" style={{ color: "inherit", fontWeight: 600 }}>
+          <Link
+            href={params.get("callbackUrl") ? `/login?callbackUrl=${encodeURIComponent(params.get("callbackUrl"))}` : "/login"}
+            style={{ color: "inherit", fontWeight: 600 }}
+          >
             {t("auth.signInLink")}
           </Link>
         </Typography>

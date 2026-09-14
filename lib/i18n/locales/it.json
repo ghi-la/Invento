@@ -225,6 +225,22 @@
     "errors": {
       "changeRoleFailed": "Impossibile cambiare il ruolo.",
       "addFailed": "Impossibile aggiungere il membro."
+    },
+    "invitations": {
+      "title": "Link di invito",
+      "subtitle": "Condividi un link per invitare qualcuno con un ruolo specifico. Puoi revocarlo in qualsiasi momento.",
+      "newButton": "Nuovo link di invito",
+      "creating": "Creazione in corso…",
+      "empty": "Nessun link di invito attivo.",
+      "createDialogTitle": "Crea link di invito",
+      "createDialogBody": "Chiunque abbia questo link potrà unirsi con il ruolo selezionato.",
+      "copy": "Copia link",
+      "revoke": "Revoca",
+      "expiresOn": "Scade il {{date}}",
+      "errors": {
+        "createFailed": "Impossibile creare il link di invito.",
+        "revokeFailed": "Impossibile revocare il link di invito."
+      }
     }
   },
   "settings": {
@@ -321,6 +337,23 @@
       "l": "l",
       "ml": "ml",
       "m": "m"
+    }
+  },
+  "invite": {
+    "loading": "Caricamento invito…",
+    "notFoundTitle": "Invito non trovato",
+    "notFoundBody": "Questo link di invito non è valido. Chiedi a chi te l'ha inviato di generarne uno nuovo.",
+    "expiredTitle": "Invito scaduto",
+    "expiredBody": "Questo link di invito è scaduto. Chiedi un nuovo link.",
+    "invitedTitle": "Sei stato invitato",
+    "invitedBody": "Sei stato invitato a unirti a {{warehouse}} come {{role}}.",
+    "loginButton": "Accedi per accettare",
+    "signupButton": "Crea un account",
+    "acceptButton": "Accetta invito",
+    "accepting": "Ingresso in corso…",
+    "declineButton": "Rifiuta",
+    "errors": {
+      "acceptFailed": "Impossibile accettare l'invito."
     }
   }
 }

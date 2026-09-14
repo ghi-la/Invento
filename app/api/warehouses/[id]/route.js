@@ -7,6 +7,7 @@ import Product from "@/lib/models/Product";
 import Category from "@/lib/models/Category";
 import StockMovement from "@/lib/models/StockMovement";
 import DashboardLayout from "@/lib/models/DashboardLayout";
+import Invitation from "@/lib/models/Invitation";
 import { requireRole } from "@/lib/apiAuth";
 
 const updateSchema = z.object({
@@ -61,6 +62,7 @@ export async function DELETE(req, { params }) {
     Category.deleteMany({ warehouse: params.id }),
     StockMovement.deleteMany({ warehouse: params.id }),
     DashboardLayout.deleteMany({ warehouse: params.id }),
+    Invitation.deleteMany({ warehouse: params.id }),
   ]);
 
   return NextResponse.json({ ok: true });

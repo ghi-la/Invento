@@ -29,6 +29,9 @@ import {
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LinkIcon from "@mui/icons-material/Link";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CheckIcon from "@mui/icons-material/Check";
 import RoleGuard from "@/components/RoleGuard";
 import { useWarehouse } from "@/components/WarehouseContext";
 import { ROLE_KEYS, assignableRoles } from "@/lib/permissions";
@@ -176,7 +179,176 @@ function MembersInner() {
           setAddOpen(false);
         }}
       />
+
+      <InvitationsSection warehouseId={warehouseId} assignable={assignable} />
     </Box>
+  );
+}
+
+function InvitationsSection({ warehouseId, assignable }) {
+  const { t } = useTranslation();
+  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}/invitations`);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [pendingId, setPendingId] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
+
+  async function revoke(id) {
+    setError("");
+    setPendingId(id);
+    try {
+      const res = await fetch(`/api/warehouses/${warehouseId}/invitations/${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        setError(body.error || t("members.invitations.errors.revokeFailed"));
+      }
+      await mutate();
+    } finally {
+      setPendingId(null);
+    }
+  }
+
+  async function copyLink(inv) {
+    const url = `${window.location.origin}/invite/${inv.token}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedId(inv.id);
+      setTimeout(() => setCopiedId(null), 1500);
+    } catch {
+      // clipboard access denied — nothing else we can do here
+    }
+  }
+
+  return (
+    <Box sx={{ mt: 4 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+        <Typography variant="h6" fontWeight={700}>
+          {t("members.invitations.title")}
+        </Typography>
+        <Button variant="outlined" startIcon={<LinkIcon />} onClick={() => setCreateOpen(true)}>
+          {t("members.invitations.newButton")}
+        </Button>
+      </Stack>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        {t("members.invitations.subtitle")}
+      </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError("")}>
+          {error}
+        </Alert>
+      )}
+
+      <Card>
+        <List disablePadding>
+          {data?.invitations?.length ? (
+            data.invitations.map((inv) => (
+              <ListItem
+                key={inv.id}
+                secondaryAction={
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    {pendingId === inv.id && <CircularProgress size={16} />}
+                    <IconButton edge="end" onClick={() => copyLink(inv)} title={t("members.invitations.copy")}>
+                      {copiedId === inv.id ? (
+                        <CheckIcon fontSize="small" color="success" />
+                      ) : (
+                        <ContentCopyIcon fontSize="small" />
+                      )}
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      color="error"
+                      disabled={pendingId === inv.id}
+                      onClick={() => revoke(inv.id)}
+                      title={t("members.invitations.revoke")}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Stack>
+                }
+              >
+                <ListItemText
+                  primary={t(`roles.${inv.role}.label`)}
+                  secondary={t("members.invitations.expiresOn", {
+                    date: new Date(inv.expiresAt).toLocaleDateString(),
+                  })}
+                />
+              </ListItem>
+            ))
+          ) : (
+            <ListItem>
+              <ListItemText secondary={t("members.invitations.empty")} />
+            </ListItem>
+          )}
+        </List>
+      </Card>
+
+      <CreateInvitationDialog
+        warehouseId={warehouseId}
+        assignable={assignable}
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onCreated={() => {
+          mutate();
+          setCreateOpen(false);
+        }}
+      />
+    </Box>
+  );
+}
+
+function CreateInvitationDialog({ warehouseId, assignable, open, onClose, onCreated }) {
+  const { t } = useTranslation();
+  const [role, setRole] = useState(assignable[assignable.length - 1] || "viewer");
+  const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  async function handleCreate() {
+    setError("");
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/warehouses/${warehouseId}/invitations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || t("members.invitations.errors.createFailed"));
+      onCreated();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+      <DialogTitle>{t("members.invitations.createDialogTitle")}</DialogTitle>
+      <DialogContent>
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          {t("members.invitations.createDialogBody")}
+        </Typography>
+        <Select fullWidth value={role} onChange={(e) => setRole(e.target.value)}>
+          {assignable.map((r) => (
+            <MenuItem key={r} value={r}>
+              {t(`roles.${r}.label`)}
+            </MenuItem>
+          ))}
+        </Select>
+      </DialogContent>
+      <DialogActions sx={{ px: 3, pb: 2 }}>
+        <Button onClick={onClose}>{t("common.cancel")}</Button>
+        <Button variant="contained" disabled={saving} onClick={handleCreate}>
+          {saving ? t("members.invitations.creating") : t("members.invitations.newButton")}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

@@ -149,7 +149,10 @@ function LoginForm() {
 
         <Typography variant="body2" align="center" sx={{ mt: 3 }} color="text.secondary">
           {t("auth.noAccount")}{" "}
-          <Link href="/register" style={{ color: "inherit", fontWeight: 600 }}>
+          <Link
+            href={params.get("callbackUrl") ? `/register?callbackUrl=${encodeURIComponent(params.get("callbackUrl"))}` : "/register"}
+            style={{ color: "inherit", fontWeight: 600 }}
+          >
             {t("auth.createAccountLink")}
           </Link>
         </Typography>

@@ -76,7 +76,7 @@ Visit `http://localhost:3000`, create an account, and create your first warehous
 
 - **Warehouses** are the top-level tenant boundary. Each product, category, and stock movement belongs to exactly one warehouse.
 - **Memberships** join a user to a warehouse with a role (`owner` / `admin` / `editor` / `viewer`). A user can belong to any number of warehouses with different roles in each. The role hierarchy and what each level can do is in `lib/permissions.js`, enforced on every API route via `lib/apiAuth.js`.
-- **Adding teammates**: since there's no email service configured, invites work by searching for an *existing* account by name/email on the Members page. Ask your teammate to sign up first, then add them.
+- **Adding teammates**: either search for an *existing* account by name/email on the Members page and add them directly, or generate a shareable invite link (with the role baked in) from the same page — anyone who opens it logs in or signs up, then accepts or declines. Links live 7 days and can be revoked early. There's no email service configured, so links are shared manually (Slack, chat, etc.) rather than emailed automatically.
 - **Every quantity change** — from the stepper, the scanner, a manual edit, or a CSV import — writes a `StockMovement` record, which powers the audit trail and the Recent Activity widget.
 - **Dashboard widgets** are stored per-user, per-warehouse in the `DashboardLayout` collection, so each teammate can arrange their own view.
 
@@ -84,7 +84,7 @@ Visit `http://localhost:3000`, create an account, and create your first warehous
 
 - The inventory list loads up to 200 items at once (no infinite scroll/pagination UI yet) — fine for most small-to-mid warehouses, but worth adding a "load more" control for catalogs larger than that.
 - Product photos accept a pasted image URL only; there's no built-in image upload/storage (would need an object storage provider like Vercel Blob or Cloudinary).
-- Invites are account-to-account only (no "invite by email" flow for people without an account yet) — adding that later just needs an email provider like Resend plus a pending-invite collection.
+- Invite links are shared manually rather than emailed — adding automatic delivery later just needs an email provider like Resend to send the link when it's created.
 - No stock *transfers between warehouses* yet — today, moving stock means adjusting the quantity in each warehouse separately.
 
 ## Project structure
