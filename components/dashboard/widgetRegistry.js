@@ -3,6 +3,8 @@ import RecentActivityWidget from "./widgets/RecentActivityWidget";
 import TotalValueWidget from "./widgets/TotalValueWidget";
 import CategoryBreakdownWidget from "./widgets/CategoryBreakdownWidget";
 import QuickUpdateWidget from "./widgets/QuickUpdateWidget";
+import UpcomingEventsWidget from "./widgets/UpcomingEventsWidget";
+import EventCostsWidget from "./widgets/EventCostsWidget";
 
 export const WIDGET_REGISTRY = {
   quickUpdate: {
@@ -33,6 +35,18 @@ export const WIDGET_REGISTRY = {
     titleKey: "dashboard.widgets.categoryBreakdown.title",
     descriptionKey: "dashboard.widgets.categoryBreakdown.description",
     component: CategoryBreakdownWidget,
+    defaultSize: { w: 3, h: 3 },
+  },
+  upcomingEvents: {
+    titleKey: "dashboard.widgets.upcomingEvents.title",
+    descriptionKey: "dashboard.widgets.upcomingEvents.description",
+    component: UpcomingEventsWidget,
+    defaultSize: { w: 6, h: 4 },
+  },
+  eventCosts: {
+    titleKey: "dashboard.widgets.eventCosts.title",
+    descriptionKey: "dashboard.widgets.eventCosts.description",
+    component: EventCostsWidget,
     defaultSize: { w: 3, h: 3 },
   },
 };

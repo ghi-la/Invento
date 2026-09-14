@@ -35,6 +35,8 @@
     "inventory": "Inventario",
     "scan": "Scansione",
     "categories": "Categorie",
+    "events": "Eventi",
+    "suppliers": "Fornitori",
     "importCsv": "Importa CSV",
     "members": "Membri",
     "settings": "Impostazioni",
@@ -128,6 +130,19 @@
         "title": "Per categoria",
         "description": "Come si distribuisce l'inventario tra le categorie.",
         "empty": "Aggiungi prodotti per vedere la ripartizione."
+      },
+      "upcomingEvents": {
+        "title": "Prossimi eventi",
+        "description": "Eventi pianificati o attualmente attivi.",
+        "empty": "Nessun evento imminente o attivo.",
+        "viewAll": "Vedi tutti gli eventi"
+      },
+      "eventCosts": {
+        "title": "Costi eventi aperti",
+        "description": "Costo e valore in sospeso degli eventi non ancora completati.",
+        "label": "Costo degli eventi aperti",
+        "openEvents": "Eventi aperti",
+        "outstandingValue": "Valore in sospeso"
       }
     }
   },
@@ -210,6 +225,89 @@
     "errors": {
       "saveFailed": "Impossibile salvare la categoria.",
       "deleteFailed": "Impossibile eliminare la categoria."
+    }
+  },
+  "suppliers": {
+    "title": "Fornitori",
+    "newButton": "Nuovo fornitore",
+    "newTitle": "Nuovo fornitore",
+    "editTitle": "Modifica fornitore",
+    "emptyTitle": "Nessun fornitore ancora",
+    "emptyBody": "Aggiungi i fornitori da cui acquisti materiali per gli eventi per tenere traccia dei costi.",
+    "deleteConfirmTitle": "Eliminare \"{{name}}\"?",
+    "deleteConfirmBody": "Questo fornitore è referenziato da articoli di eventi passati e non può essere rimosso finché è così.",
+    "selectLabel": "Fornitore",
+    "searchOrCreate": "Cerca o crea…",
+    "createOption": "+ Crea \"{{name}}\"",
+    "fields": {
+      "contactName": "Nome del contatto",
+      "email": "Email",
+      "phone": "Telefono"
+    },
+    "errors": {
+      "saveFailed": "Impossibile salvare il fornitore.",
+      "deleteFailed": "Impossibile eliminare il fornitore."
+    }
+  },
+  "events": {
+    "title": "Eventi",
+    "newButton": "Nuovo evento",
+    "newTitle": "Nuovo evento",
+    "editTitle": "Modifica evento",
+    "emptyTitle": "Nessun evento ancora",
+    "emptyBody": "Crea un evento per prelevare articoli dall'inventario e tenere traccia di cosa ritorna.",
+    "searchPlaceholder": "Cerca per nome o posizione…",
+    "statusFilter": "Stato",
+    "status": {
+      "planning": "In pianificazione",
+      "active": "Attivo",
+      "completed": "Completato"
+    },
+    "outstandingBadge_one": "{{count}} in sospeso",
+    "outstandingBadge_other": "{{count}} in sospeso",
+    "activate": "Attiva",
+    "closeEvent": "Chiudi evento",
+    "closeConfirmTitle": "Chiudere \"{{name}}\"?",
+    "closeConfirmBody": "{{count}} articolo/i sono ancora in sospeso, per un valore di {{value}}, e verranno segnati come perdita/mancanza, deducendoli permanentemente dalle scorte del magazzino. L'operazione non può essere annullata.",
+    "closeConfirmBodyClear": "Tutti gli articoli sono stati restituiti — chiudere segnerà semplicemente l'evento come completato.",
+    "deleteConfirmTitle": "Eliminare \"{{name}}\"?",
+    "deleteConfirmBody": "Rimuovi prima tutti i suoi articoli.",
+    "sourceWarehouse": "Dal magazzino",
+    "sourceSupplier": "Da fornitore",
+    "available": "disponibili",
+    "addItem": "Aggiungi articolo",
+    "recordReturn": "Registra reso",
+    "outstanding": "In sospeso",
+    "outstandingHelper": "{{quantity}} in sospeso",
+    "availableHelper": "{{quantity}} disponibili",
+    "shortage": "Perdita/mancanza",
+    "quantityTaken": "Prelevato",
+    "quantityReturned": "Restituito",
+    "unitCost": "Costo unitario",
+    "lineCost": "Costo totale",
+    "returnNote": "Nota (opzionale)",
+    "fields": {
+      "name": "Nome evento",
+      "startDate": "Data inizio",
+      "endDate": "Data fine",
+      "itemName": "Nome articolo"
+    },
+    "report": {
+      "title": "Report evento",
+      "warehouseItemsCost": "Articoli da magazzino (costo)",
+      "supplierItemsCost": "Acquistati per l'evento",
+      "totalCost": "Costo totale",
+      "shortageValue": "Valore perdita/mancanza",
+      "outstandingValue": "Ancora in sospeso"
+    },
+    "errors": {
+      "saveFailed": "Impossibile salvare l'evento.",
+      "deleteFailed": "Impossibile eliminare l'evento.",
+      "addItemFailed": "Impossibile aggiungere l'articolo.",
+      "returnFailed": "Impossibile registrare il reso.",
+      "closeFailed": "Impossibile chiudere l'evento.",
+      "loadFailed": "Impossibile caricare questo evento.",
+      "endBeforeStart": "La data di fine deve essere uguale o successiva alla data di inizio."
     }
   },
   "members": {

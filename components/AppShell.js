@@ -28,6 +28,8 @@ import DashboardIcon from "@mui/icons-material/SpaceDashboard";
 import InventoryIcon from "@mui/icons-material/Inventory2";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import CategoryIcon from "@mui/icons-material/Category";
+import EventIcon from "@mui/icons-material/Event";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import GroupIcon from "@mui/icons-material/Group";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -55,6 +57,8 @@ export default function AppShell({ children }) {
     { key: "inventory", label: t("nav.inventory"), href: `/w/${wid}/inventory`, icon: <InventoryIcon /> },
     { key: "scan", label: t("nav.scan"), href: `/w/${wid}/scan`, icon: <QrCodeScannerIcon /> },
     { key: "categories", label: t("nav.categories"), href: `/w/${wid}/categories`, icon: <CategoryIcon /> },
+    { key: "events", label: t("nav.events"), href: `/w/${wid}/events`, icon: <EventIcon /> },
+    { key: "suppliers", label: t("nav.suppliers"), href: `/w/${wid}/suppliers`, icon: <LocalShippingIcon />, minRole: "editor" },
     { key: "import", label: t("nav.importCsv"), href: `/w/${wid}/import`, icon: <UploadFileIcon />, minRole: "editor" },
     { key: "members", label: t("nav.members"), href: `/w/${wid}/members`, icon: <GroupIcon />, minRole: "admin" },
     { key: "settings", label: t("nav.settings"), href: `/w/${wid}/settings`, icon: <SettingsIcon />, minRole: "admin" },

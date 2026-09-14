@@ -35,6 +35,8 @@
     "inventory": "Inventory",
     "scan": "Scan",
     "categories": "Categories",
+    "events": "Events",
+    "suppliers": "Suppliers",
     "importCsv": "Import CSV",
     "members": "Members",
     "settings": "Settings",
@@ -128,6 +130,19 @@
         "title": "By category",
         "description": "How your inventory splits across categories.",
         "empty": "Add products to see the breakdown."
+      },
+      "upcomingEvents": {
+        "title": "Upcoming events",
+        "description": "Events that are planned or currently active.",
+        "empty": "No upcoming or active events.",
+        "viewAll": "View all events"
+      },
+      "eventCosts": {
+        "title": "Open event costs",
+        "description": "Cost and outstanding value across events that aren't completed yet.",
+        "label": "Cost of open events",
+        "openEvents": "Open events",
+        "outstandingValue": "Outstanding value"
       }
     }
   },
@@ -210,6 +225,89 @@
     "errors": {
       "saveFailed": "Could not save category.",
       "deleteFailed": "Could not delete category."
+    }
+  },
+  "suppliers": {
+    "title": "Suppliers",
+    "newButton": "New supplier",
+    "newTitle": "New supplier",
+    "editTitle": "Edit supplier",
+    "emptyTitle": "No suppliers yet",
+    "emptyBody": "Add suppliers you buy event materials from to track costs.",
+    "deleteConfirmTitle": "Delete \"{{name}}\"?",
+    "deleteConfirmBody": "This supplier is referenced by past event items and can't be removed while that's the case.",
+    "selectLabel": "Supplier",
+    "searchOrCreate": "Search or create…",
+    "createOption": "+ Create \"{{name}}\"",
+    "fields": {
+      "contactName": "Contact name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "errors": {
+      "saveFailed": "Could not save supplier.",
+      "deleteFailed": "Could not delete supplier."
+    }
+  },
+  "events": {
+    "title": "Events",
+    "newButton": "New event",
+    "newTitle": "New event",
+    "editTitle": "Edit event",
+    "emptyTitle": "No events yet",
+    "emptyBody": "Create an event to check out inventory and track what comes back.",
+    "searchPlaceholder": "Search by name or location…",
+    "statusFilter": "Status",
+    "status": {
+      "planning": "Planning",
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "outstandingBadge_one": "{{count}} outstanding",
+    "outstandingBadge_other": "{{count}} outstanding",
+    "activate": "Activate",
+    "closeEvent": "Close event",
+    "closeConfirmTitle": "Close \"{{name}}\"?",
+    "closeConfirmBody": "{{count}} item(s) are still outstanding, worth {{value}}, and will be marked as shortage/loss, permanently deducting them from warehouse stock. This can't be undone.",
+    "closeConfirmBodyClear": "Every item has been fully returned — closing just marks the event complete.",
+    "deleteConfirmTitle": "Delete \"{{name}}\"?",
+    "deleteConfirmBody": "Remove all its items first.",
+    "sourceWarehouse": "From warehouse stock",
+    "sourceSupplier": "From supplier",
+    "available": "available",
+    "addItem": "Add item",
+    "recordReturn": "Record return",
+    "outstanding": "Outstanding",
+    "outstandingHelper": "{{quantity}} outstanding",
+    "availableHelper": "{{quantity}} available",
+    "shortage": "Shortage/loss",
+    "quantityTaken": "Taken",
+    "quantityReturned": "Returned",
+    "unitCost": "Unit cost",
+    "lineCost": "Total cost",
+    "returnNote": "Note (optional)",
+    "fields": {
+      "name": "Event name",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "itemName": "Item name"
+    },
+    "report": {
+      "title": "Event report",
+      "warehouseItemsCost": "Warehouse items (cost basis)",
+      "supplierItemsCost": "Purchased for event",
+      "totalCost": "Total cost",
+      "shortageValue": "Shortage/loss value",
+      "outstandingValue": "Still outstanding"
+    },
+    "errors": {
+      "saveFailed": "Could not save event.",
+      "deleteFailed": "Could not delete event.",
+      "addItemFailed": "Could not add item.",
+      "returnFailed": "Could not record return.",
+      "closeFailed": "Could not close event.",
+      "loadFailed": "Couldn't load this event.",
+      "endBeforeStart": "End date must be on or after the start date."
     }
   },
   "members": {
