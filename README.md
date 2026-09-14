@@ -10,6 +10,7 @@ A mobile-friendly, multi-warehouse inventory tracker built with Next.js (App Rou
 - **CSV import** with automatic column-mapping guesses, a preview step, and create-or-update ("upsert") matching by SKU/barcode — works with exports from most other inventory tools
 - **Customizable dashboard** — drag, resize, add and remove widgets (low stock, quick update, recent activity, inventory value, category breakdown). Saved per user, per warehouse.
 - **Camera barcode/QR scanning** for instant lookup + one-tap quantity updates, with a manual-entry fallback
+- **Product photos**, resized and compressed in the browser before upload and stored in Vercel Blob
 - **Big-target quantity stepper** used everywhere stock is adjusted — built for fast, one-thumb warehouse-floor use
 - **Full audit trail** of every stock change (who, when, how much)
 - **Mobile-first**: bottom navigation + large tap targets on phones, a full drawer + drag-and-drop dashboard on desktop
@@ -21,10 +22,11 @@ A mobile-friendly, multi-warehouse inventory tracker built with Next.js (App Rou
 | Framework | Next.js 14 (App Router, JavaScript) |
 | UI | MUI v5, custom theme |
 | Charts | @mui/x-charts |
-| Auth | NextAuth.js (Credentials + Google OAuth), JWT sessions |
+| Auth | NextAuth.js (Credentials), JWT sessions |
 | Database | MongoDB Atlas via Mongoose |
 | CSV parsing | PapaParse |
 | Barcode scanning | html5-qrcode (browser camera, no native app needed) |
+| Photo storage | Vercel Blob |
 | Dashboard grid | react-grid-layout |
 | Data fetching | SWR |
 
@@ -41,6 +43,7 @@ Edit `.env.local`:
 MONGODB_URI=mongodb+srv://<db_username>:<db_password>@cluster-ghila.zrsoj.mongodb.net/warehouse_inventory?appName=Cluster-Ghila
 NEXTAUTH_SECRET=<run: openssl rand -base64 32>
 NEXTAUTH_URL=http://localhost:3000
+BLOB_READ_WRITE_TOKEN=<from a Vercel Blob store>
 ```
 
 **MongoDB Atlas checklist:**
@@ -48,7 +51,7 @@ NEXTAUTH_URL=http://localhost:3000
 2. Network Access → add `0.0.0.0/0` (or Vercel's IP ranges) so the app can connect from serverless functions.
 3. The app will create its collections automatically on first use — no manual schema setup needed.
 
-Google sign-in is optional. Leave `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` blank to only show email/password, or fill them in (see `.env.example` for where to create credentials) to enable the "Continue with Google" button.
+**Vercel Blob (product photos):** create/connect a Blob store from the Vercel dashboard's Storage tab, then either copy its token into `BLOB_READ_WRITE_TOKEN` above for local dev, or run `vercel env pull .env.local` after linking the project. Deployed environments get the token injected automatically once the store is connected — no other setup needed.
 
 Run it:
 
@@ -66,9 +69,8 @@ Visit `http://localhost:3000`, create an account, and create your first warehous
    - `MONGODB_URI`
    - `NEXTAUTH_SECRET`
    - `NEXTAUTH_URL` → your production URL, e.g. `https://your-app.vercel.app`
-   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
-4. If using Google sign-in, add `https://your-app.vercel.app/api/auth/callback/google` as an authorized redirect URI in the Google Cloud Console.
-5. Deploy. That's it — no build configuration changes needed.
+   - `BLOB_READ_WRITE_TOKEN` (auto-added once you connect a Blob store to the project)
+4. Deploy. That's it — no build configuration changes needed.
 
 ## How the pieces fit together
 

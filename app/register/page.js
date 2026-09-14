@@ -8,7 +8,6 @@ import {
   Button,
   Card,
   Container,
-  Divider,
   Stack,
   TextField,
   Typography,
@@ -16,7 +15,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
-import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import { isValidEmail } from "@/lib/validation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -164,18 +162,6 @@ export default function RegisterPage() {
               {loading ? t("auth.creatingAccount") : t("auth.createAccountButton")}
             </Button>
           </Stack>
-
-          <Divider sx={{ my: 2 }}>{t("common.or")}</Divider>
-
-          <Button
-            variant="outlined"
-            size="large"
-            fullWidth
-            startIcon={<GoogleIcon />}
-            onClick={() => signIn("google", { callbackUrl: "/warehouses" })}
-          >
-            {t("auth.continueWithGoogle")}
-          </Button>
         </Card>
 
         <Typography variant="body2" align="center" sx={{ mt: 3 }} color="text.secondary">

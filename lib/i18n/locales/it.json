@@ -13,7 +13,6 @@
     "noMatches": "Nessun risultato.",
     "lowStock": "Scorte basse",
     "viewDetails": "Vedi dettagli",
-    "or": "oppure",
     "noAccessTitle": "Non hai accesso a questa pagina",
     "noAccessBody": "Chiedi a un amministratore del magazzino se ti serve.",
     "fields": {
@@ -52,7 +51,6 @@
     "signInSubtitle": "Tieni traccia delle scorte in ogni magazzino, da qualsiasi dispositivo.",
     "signInButton": "Accedi",
     "signingIn": "Accesso in corso…",
-    "continueWithGoogle": "Continua con Google",
     "noAccount": "Non hai un account?",
     "createAccountLink": "Creane uno",
     "createAccountTitle": "Crea il tuo account",
@@ -157,6 +155,13 @@
     "name": "Nome prodotto",
     "sku": "SKU",
     "barcode": "Codice a barre",
+    "photo": {
+      "upload": "Carica foto",
+      "change": "Cambia foto",
+      "errors": {
+        "uploadFailed": "Impossibile caricare la foto."
+      }
+    },
     "quantity": "Quantità",
     "unit": "Unità",
     "lowStockAt": "Scorte basse a",

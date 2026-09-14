@@ -4,6 +4,7 @@ import { dbConnect } from "@/lib/mongodb";
 import Product from "@/lib/models/Product";
 import StockMovement from "@/lib/models/StockMovement";
 import { requireRole } from "@/lib/apiAuth";
+import { deleteBlobIfOwned } from "@/lib/blob";
 
 const patchSchema = z.object({
   name: z.string().trim().min(1).max(200).optional(),
@@ -74,9 +75,15 @@ export async function PATCH(req, { params }) {
 
   const quantityChanged = "quantity" in data && data.quantity !== product.quantity;
   const previousQuantity = product.quantity;
+  const previousImageUrl = product.imageUrl;
+  const imageChanged = "imageUrl" in data && data.imageUrl !== previousImageUrl;
 
   Object.assign(product, data);
   await product.save();
+
+  if (imageChanged) {
+    await deleteBlobIfOwned(previousImageUrl);
+  }
 
   if (quantityChanged) {
     await StockMovement.create({
@@ -101,6 +108,8 @@ export async function DELETE(req, { params }) {
   await dbConnect();
   const product = await Product.findOneAndDelete({ _id: params.productId, warehouse: params.id });
   if (!product) return NextResponse.json({ error: "Product not found." }, { status: 404 });
+
+  await deleteBlobIfOwned(product.imageUrl);
 
   await StockMovement.create({
     warehouse: params.id,

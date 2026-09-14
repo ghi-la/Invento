@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import CategorySelect from "@/components/CategorySelect";
+import PhotoUpload from "@/components/PhotoUpload";
 import { UNIT_VALUES, unitLabel } from "@/lib/units";
 
 const BarcodeScanner = dynamic(() => import("@/components/BarcodeScanner"), { ssr: false });
@@ -23,6 +24,7 @@ const empty = {
   name: "",
   sku: "",
   barcode: "",
+  imageUrl: "",
   category: null,
   unit: "pcs",
   itemsPerBox: "",
@@ -61,6 +63,8 @@ export default function ProductForm({ warehouseId, initial, onSubmit, submitLabe
   return (
     <Stack component="form" spacing={2.5} onSubmit={handleSubmit}>
       {error && <Alert severity="error">{error}</Alert>}
+
+      <PhotoUpload warehouseId={warehouseId} value={values.imageUrl} onChange={(url) => set("imageUrl", url)} />
 
       <TextField
         label={t("product.name")}
