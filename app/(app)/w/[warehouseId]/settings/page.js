@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogActions,
   CircularProgress,
+  Skeleton,
 } from "@mui/material";
 import RoleGuard from "@/components/RoleGuard";
 import { useWarehouse } from "@/components/WarehouseContext";
@@ -37,7 +38,7 @@ function SettingsInner() {
   const { warehouseId } = useParams();
   const router = useRouter();
   const { role } = useWarehouse();
-  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}`);
+  const { data, isLoading, mutate } = useSWR(`/api/warehouses/${warehouseId}`);
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -110,58 +111,68 @@ function SettingsInner() {
               {t("settings.saved")}
             </Alert>
           )}
-          <Stack spacing={2}>
-            <TextField
-              label={t("common.fields.name")}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label={t("common.fields.location")}
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label={t("common.fields.description")}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              multiline
-              minRows={2}
-              fullWidth
-            />
-            <Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                {t("settings.accentColor")}
-              </Typography>
-              <Stack direction="row" spacing={1}>
-                {SWATCHES.map((sw) => (
-                  <Box
-                    key={sw}
-                    onClick={() => setColor(sw)}
-                    sx={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: "50%",
-                      bgcolor: sw,
-                      cursor: "pointer",
-                      border: color === sw ? "2px solid black" : "2px solid transparent",
-                    }}
-                  />
-                ))}
-              </Stack>
-            </Box>
-            <Button
-              variant="contained"
-              onClick={handleSave}
-              disabled={saving}
-              startIcon={saving ? <CircularProgress size={16} color="inherit" /> : null}
-              sx={{ alignSelf: "flex-start" }}
-            >
-              {saving ? t("common.saving") : t("common.saveChanges")}
-            </Button>
-          </Stack>
+          {isLoading ? (
+            <Stack spacing={2}>
+              <Skeleton variant="rounded" height={56} />
+              <Skeleton variant="rounded" height={56} />
+              <Skeleton variant="rounded" height={80} />
+              <Skeleton variant="rounded" width={140} height={20} />
+              <Skeleton variant="rounded" width={120} height={36} />
+            </Stack>
+          ) : (
+            <Stack spacing={2}>
+              <TextField
+                label={t("common.fields.name")}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                fullWidth
+              />
+              <TextField
+                label={t("common.fields.location")}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                fullWidth
+              />
+              <TextField
+                label={t("common.fields.description")}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                multiline
+                minRows={2}
+                fullWidth
+              />
+              <Box>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  {t("settings.accentColor")}
+                </Typography>
+                <Stack direction="row" spacing={1}>
+                  {SWATCHES.map((sw) => (
+                    <Box
+                      key={sw}
+                      onClick={() => setColor(sw)}
+                      sx={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        bgcolor: sw,
+                        cursor: "pointer",
+                        border: color === sw ? "2px solid black" : "2px solid transparent",
+                      }}
+                    />
+                  ))}
+                </Stack>
+              </Box>
+              <Button
+                variant="contained"
+                onClick={handleSave}
+                disabled={saving}
+                startIcon={saving ? <CircularProgress size={16} color="inherit" /> : null}
+                sx={{ alignSelf: "flex-start" }}
+              >
+                {saving ? t("common.saving") : t("common.saveChanges")}
+              </Button>
+            </Stack>
+          )}
         </CardContent>
       </Card>
 

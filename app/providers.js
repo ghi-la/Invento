@@ -44,7 +44,7 @@ export default function Providers({ children }) {
         <SyncLanguage />
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <SWRConfig value={{ fetcher, revalidateOnFocus: true }}>{children}</SWRConfig>
+          <SWRConfig value={{ fetcher, revalidateOnFocus: true, keepPreviousData: true }}>{children}</SWRConfig>
         </ThemeProvider>
       </I18nextProvider>
     </SessionProvider>

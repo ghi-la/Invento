@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { List, ListItem, ListItemAvatar, ListItemText, Avatar, Box, Typography } from "@mui/material";
+import { List, ListItem, ListItemAvatar, ListItemText, Avatar, Box, Typography, Skeleton, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -11,10 +11,23 @@ import EditIcon from "@mui/icons-material/Edit";
 export default function RecentActivityWidget() {
   const { t } = useTranslation();
   const { warehouseId } = useParams();
-  const { data } = useSWR(`/api/warehouses/${warehouseId}/movements?limit=8`, { refreshInterval: 15000 });
+  const { data, isLoading } = useSWR(`/api/warehouses/${warehouseId}/movements?limit=8`, { refreshInterval: 15000 });
   const movements = data?.movements || [];
 
-  if (data && movements.length === 0) {
+  if (isLoading) {
+    return (
+      <Stack spacing={1.5} sx={{ px: 1 }}>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Stack key={i} direction="row" spacing={1.5} alignItems="center">
+            <Skeleton variant="circular" width={28} height={28} />
+            <Skeleton variant="text" sx={{ flex: 1 }} />
+          </Stack>
+        ))}
+      </Stack>
+    );
+  }
+
+  if (movements.length === 0) {
     return (
       <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Typography variant="body2" color="text.secondary">

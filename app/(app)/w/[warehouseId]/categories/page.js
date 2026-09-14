@@ -27,6 +27,7 @@ import {
   InputLabel,
   Alert,
   CircularProgress,
+  Skeleton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -41,7 +42,7 @@ export default function CategoriesPage() {
   const { t } = useTranslation();
   const { warehouseId } = useParams();
   const { can } = useWarehouse();
-  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}/categories`);
+  const { data, isLoading, mutate } = useSWR(`/api/warehouses/${warehouseId}/categories`);
   const [dialog, setDialog] = useState(null); // { mode: "create"|"edit", category }
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [error, setError] = useState("");
@@ -89,7 +90,7 @@ export default function CategoriesPage() {
         </Alert>
       )}
 
-      {tree.length === 0 && (
+      {!isLoading && tree.length === 0 && (
         <Box sx={{ textAlign: "center", py: 8 }}>
           <CategoryIcon sx={{ fontSize: 48, color: "text.secondary", mb: 2 }} />
           <Typography variant="h6" fontWeight={700}>
@@ -101,6 +102,25 @@ export default function CategoriesPage() {
         </Box>
       )}
 
+      {isLoading && (
+        <Card>
+          <List disablePadding>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <ListItem key={i}>
+                <ListItemIcon>
+                  <Skeleton variant="circular" width={14} height={14} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={<Skeleton variant="text" width="40%" />}
+                  secondary={<Skeleton variant="text" width="20%" />}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Card>
+      )}
+
+      {!isLoading && tree.length > 0 && (
       <Card>
         <List disablePadding>
           {tree.map((cat) => (
@@ -157,6 +177,7 @@ export default function CategoriesPage() {
           ))}
         </List>
       </Card>
+      )}
 
       <CategoryDialog
         warehouseId={warehouseId}

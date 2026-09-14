@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { Box, Typography, Stack, Button, useMediaQuery } from "@mui/material";
+import { Box, Typography, Stack, Button, useMediaQuery, Skeleton } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import CheckIcon from "@mui/icons-material/Check";
 import AddIcon from "@mui/icons-material/Add";
@@ -66,7 +66,7 @@ export default function DashboardPage() {
     persist((widgets || []).filter((w) => w.id !== id));
   }
 
-  if (!widgets) return null;
+  const loading = !widgets;
 
   return (
     <Box>
@@ -88,6 +88,7 @@ export default function DashboardPage() {
           <Button
             variant={editMode ? "contained" : "outlined"}
             startIcon={editMode ? <CheckIcon /> : <TuneIcon />}
+            disabled={loading}
             onClick={() => setEditMode((v) => !v)}
           >
             {editMode ? t("dashboard.done") : t("dashboard.customize")}
@@ -95,7 +96,15 @@ export default function DashboardPage() {
         </Stack>
       </Stack>
 
-      {widgets.length === 0 && !editMode && (
+      {loading && (
+        <Stack spacing={2} direction={isMobile ? "column" : "row"} flexWrap="wrap">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} variant="rounded" height={220} sx={{ flex: isMobile ? "none" : "1 1 320px" }} />
+          ))}
+        </Stack>
+      )}
+
+      {!loading && widgets.length === 0 && !editMode && (
         <Box sx={{ textAlign: "center", py: 8 }}>
           <Typography color="text.secondary" sx={{ mb: 2 }}>
             {t("dashboard.emptyTitle")}
@@ -106,7 +115,7 @@ export default function DashboardPage() {
         </Box>
       )}
 
-      {isMobile ? (
+      {!loading && (isMobile ? (
         <Stack spacing={2}>
           {widgets.map((w) => {
             const def = WIDGET_REGISTRY[w.type];
@@ -123,7 +132,7 @@ export default function DashboardPage() {
         </Stack>
       ) : (
         <WidgetGrid widgets={widgets} editMode={editMode} onLayoutChange={persist} onRemove={handleRemove} />
-      )}
+      ))}
 
       <AddWidgetDialog open={addOpen} onClose={() => setAddOpen(false)} onAdd={handleAdd} />
     </Box>

@@ -2,17 +2,30 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { List, ListItem, ListItemText, Chip, Typography, Box, Button } from "@mui/material";
+import { List, ListItem, ListItemText, Chip, Typography, Box, Button, Skeleton, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { formatQuantity } from "@/lib/units";
 
 export default function LowStockWidget() {
   const { t } = useTranslation();
   const { warehouseId } = useParams();
-  const { data } = useSWR(`/api/warehouses/${warehouseId}/products?lowStock=true&limit=6`);
+  const { data, isLoading } = useSWR(`/api/warehouses/${warehouseId}/products?lowStock=true&limit=6`);
   const products = data?.products || [];
 
-  if (data && products.length === 0) {
+  if (isLoading) {
+    return (
+      <Stack spacing={1.5}>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Stack key={i} direction="row" spacing={1.5} alignItems="center">
+            <Skeleton variant="text" sx={{ flex: 1 }} />
+            <Skeleton variant="rounded" width={48} height={22} />
+          </Stack>
+        ))}
+      </Stack>
+    );
+  }
+
+  if (products.length === 0) {
     return (
       <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Typography variant="body2" color="text.secondary">

@@ -49,7 +49,7 @@ export default function ProductDetailPage() {
   const { data: product, error: loadError, isLoading, mutate } = useSWR(
     `/api/warehouses/${warehouseId}/products/${productId}`
   );
-  const { data: activity } = useSWR(
+  const { data: activity, isLoading: activityLoading } = useSWR(
     `/api/warehouses/${warehouseId}/movements?product=${productId}&limit=10`
   );
 
@@ -104,7 +104,15 @@ export default function ProductDetailPage() {
   if (isLoading || !product) {
     return (
       <Box sx={{ maxWidth: 640, mx: "auto" }}>
-        <Skeleton variant="rounded" height={200} />
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+          <Skeleton variant="circular" width={40} height={40} />
+          <Skeleton variant="text" width="40%" sx={{ fontSize: "1.5rem" }} />
+        </Stack>
+        <Stack spacing={2}>
+          <Skeleton variant="rounded" height={220} />
+          <Skeleton variant="rounded" height={160} />
+          <Skeleton variant="rounded" height={180} />
+        </Stack>
       </Box>
     );
   }
@@ -223,13 +231,23 @@ export default function ProductDetailPage() {
               <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 1 }}>
                 {t("product.recentActivity")}
               </Typography>
-              {!activity?.movements?.length && (
+              {activityLoading && (
+                <Stack spacing={1.5}>
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Stack key={i} direction="row" spacing={1.5} alignItems="center">
+                      <Skeleton variant="circular" width={32} height={32} />
+                      <Skeleton variant="text" sx={{ flex: 1 }} />
+                    </Stack>
+                  ))}
+                </Stack>
+              )}
+              {!activityLoading && !activity?.movements?.length && (
                 <Typography variant="body2" color="text.secondary">
                   {t("product.noActivity")}
                 </Typography>
               )}
               <List dense>
-                {activity?.movements?.map((m) => (
+                {!activityLoading && activity?.movements?.map((m) => (
                   <ListItem key={m.id} disableGutters>
                     <ListItemAvatar>
                       <Avatar

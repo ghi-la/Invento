@@ -26,6 +26,7 @@ import {
   Alert,
   Autocomplete,
   CircularProgress,
+  Skeleton,
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,7 +49,7 @@ function MembersInner() {
   const { t } = useTranslation();
   const { warehouseId } = useParams();
   const { role: myRole } = useWarehouse();
-  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}/members`);
+  const { data, isLoading, mutate } = useSWR(`/api/warehouses/${warehouseId}/members`);
   const [addOpen, setAddOpen] = useState(false);
   const [error, setError] = useState("");
   const [pendingUserId, setPendingUserId] = useState(null);
@@ -106,7 +107,20 @@ function MembersInner() {
 
       <Card>
         <List disablePadding>
-          {data?.members?.map((m) => (
+          {isLoading &&
+            Array.from({ length: 3 }).map((_, i) => (
+              <ListItem key={i}>
+                <ListItemAvatar>
+                  <Skeleton variant="circular" width={40} height={40} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={<Skeleton variant="text" width="35%" />}
+                  secondary={<Skeleton variant="text" width="55%" />}
+                />
+              </ListItem>
+            ))}
+          {!isLoading &&
+            data?.members?.map((m) => (
             <ListItem
               key={m.membershipId}
               secondaryAction={
@@ -187,7 +201,7 @@ function MembersInner() {
 
 function InvitationsSection({ warehouseId, assignable }) {
   const { t } = useTranslation();
-  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}/invitations`);
+  const { data, isLoading, mutate } = useSWR(`/api/warehouses/${warehouseId}/invitations`);
   const [createOpen, setCreateOpen] = useState(false);
   const [error, setError] = useState("");
   const [pendingId, setPendingId] = useState(null);
@@ -241,7 +255,16 @@ function InvitationsSection({ warehouseId, assignable }) {
 
       <Card>
         <List disablePadding>
-          {data?.invitations?.length ? (
+          {isLoading ? (
+            Array.from({ length: 2 }).map((_, i) => (
+              <ListItem key={i}>
+                <ListItemText
+                  primary={<Skeleton variant="text" width="20%" />}
+                  secondary={<Skeleton variant="text" width="40%" />}
+                />
+              </ListItem>
+            ))
+          ) : data?.invitations?.length ? (
             data.invitations.map((inv) => (
               <ListItem
                 key={inv.id}

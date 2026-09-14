@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
  */
 export default function CategorySelect({ warehouseId, value, onChange, disabled }) {
   const { t } = useTranslation();
-  const { data, mutate } = useSWR(`/api/warehouses/${warehouseId}/categories`);
+  const { data, isLoading, mutate } = useSWR(`/api/warehouses/${warehouseId}/categories`);
   const [creating, setCreating] = useState(false);
 
   const options = useMemo(() => {
@@ -49,7 +49,7 @@ export default function CategorySelect({ warehouseId, value, onChange, disabled 
       options={options}
       value={selected}
       isOptionEqualToValue={(o, v) => o.id === v.id}
-      loading={creating}
+      loading={creating || isLoading}
       onChange={(e, newVal, reason) => {
         if (reason === "clear") return onChange(null);
         if (newVal?.inputValue) return handleCreate(newVal.inputValue);
