@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { requireRole } from "@/lib/apiAuth";
 
+// Cold starts on this route stack a fresh MongoDB connection (inside requireRole)
+// on top of the blob upload itself, which can occasionally outrun the platform's
+// default function timeout. Give it more headroom than that default.
+export const maxDuration = 30;
+
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 // A correctly resized product photo should land around 15-40KB — this ceiling
 // only exists to catch a bypassed/failed client-side resize, not to constrain normal use.

@@ -7,11 +7,23 @@ import CloseIcon from "@mui/icons-material/Close";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import { resizeImageFile } from "@/lib/imageResize";
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default function PhotoUpload({ warehouseId, value, onChange }) {
   const { t } = useTranslation();
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+
+  async function attemptUpload(form) {
+    const res = await fetch(`/api/warehouses/${warehouseId}/uploads`, {
+      method: "POST",
+      body: form,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || t("product.photo.errors.uploadFailed"));
+    return data;
+  }
 
   async function handleFile(e) {
     const file = e.target.files?.[0];
@@ -24,12 +36,16 @@ export default function PhotoUpload({ warehouseId, value, onChange }) {
       const resized = await resizeImageFile(file);
       const form = new FormData();
       form.append("file", resized, "photo.jpg");
-      const res = await fetch(`/api/warehouses/${warehouseId}/uploads`, {
-        method: "POST",
-        body: form,
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || t("product.photo.errors.uploadFailed"));
+      // A cold serverless function (fresh DB connection + blob upload) can
+      // occasionally time out on the very first hit — one silent retry covers
+      // that without making the user notice and reload the page themselves.
+      let data;
+      try {
+        data = await attemptUpload(form);
+      } catch {
+        await sleep(1000);
+        data = await attemptUpload(form);
+      }
       onChange(data.url);
     } catch (err) {
       setError(err.message || t("product.photo.errors.uploadFailed"));

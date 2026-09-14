@@ -5,6 +5,10 @@ import Product from "@/lib/models/Product";
 import StockMovement from "@/lib/models/StockMovement";
 import { requireRole } from "@/lib/apiAuth";
 
+// A cold serverless invocation establishing a fresh MongoDB connection can
+// occasionally outrun the platform's default function timeout; give it more room.
+export const maxDuration = 30;
+
 const createSchema = z.object({
   name: z.string().trim().min(1, "Name is required.").max(200),
   sku: z.string().trim().max(100).optional().default(""),

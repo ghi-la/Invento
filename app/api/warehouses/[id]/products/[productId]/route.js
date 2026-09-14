@@ -6,6 +6,10 @@ import StockMovement from "@/lib/models/StockMovement";
 import { requireRole } from "@/lib/apiAuth";
 import { deleteBlobIfOwned } from "@/lib/blob";
 
+// A cold serverless invocation establishing a fresh MongoDB connection can
+// occasionally outrun the platform's default function timeout; give it more room.
+export const maxDuration = 30;
+
 const patchSchema = z.object({
   name: z.string().trim().min(1).max(200).optional(),
   sku: z.string().trim().max(100).optional(),
