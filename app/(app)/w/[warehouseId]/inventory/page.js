@@ -15,6 +15,7 @@ import {
   CardContent,
   Fab,
   Skeleton,
+  Button,
   ToggleButton,
   Select,
   MenuItem,
@@ -32,6 +33,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import QuantityStepper from "@/components/QuantityStepper";
 import { useWarehouse } from "@/components/WarehouseContext";
 
@@ -61,7 +63,7 @@ function InventoryInner() {
   if (lowStockOnly) query.set("lowStock", "true");
   query.set("limit", "200");
 
-  const { data, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `/api/warehouses/${warehouseId}/products?${query.toString()}`
   );
   const { data: catData } = useSWR(`/api/warehouses/${warehouseId}/categories`);
@@ -140,7 +142,22 @@ function InventoryInner() {
         </Stack>
       )}
 
-      {!isLoading && products.length === 0 && (
+      {!isLoading && error && (
+        <Box sx={{ textAlign: "center", py: 8 }}>
+          <ErrorOutlineIcon sx={{ fontSize: 48, color: "error.main", mb: 2 }} />
+          <Typography variant="h6" fontWeight={700}>
+            {t("inventory.errorTitle")}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {t("inventory.errorBody")}
+          </Typography>
+          <Button variant="outlined" onClick={() => mutate()}>
+            {t("common.retry")}
+          </Button>
+        </Box>
+      )}
+
+      {!isLoading && !error && products.length === 0 && (
         <Box sx={{ textAlign: "center", py: 8 }}>
           <Inventory2Icon sx={{ fontSize: 48, color: "text.secondary", mb: 2 }} />
           <Typography variant="h6" fontWeight={700}>
@@ -152,7 +169,7 @@ function InventoryInner() {
         </Box>
       )}
 
-      {!isLoading && products.length > 0 && isMobile && (
+      {!isLoading && !error && products.length > 0 && isMobile && (
         <Stack spacing={1.25}>
           {products.map((p) => (
             <ProductCard

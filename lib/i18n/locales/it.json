@@ -13,6 +13,7 @@
     "noMatches": "Nessun risultato.",
     "lowStock": "Scorte basse",
     "viewDetails": "Vedi dettagli",
+    "retry": "Riprova",
     "noAccessTitle": "Non hai accesso a questa pagina",
     "noAccessBody": "Chiedi a un amministratore del magazzino se ti serve.",
     "fields": {
@@ -142,6 +143,8 @@
     "noMatchBody": "Prova una ricerca diversa o rimuovi i filtri.",
     "emptyTitle": "Nessun inventario ancora",
     "emptyBody": "Aggiungi il tuo primo prodotto, oppure importa un CSV da un altro sistema.",
+    "errorTitle": "Impossibile caricare l'inventario",
+    "errorBody": "Controlla la connessione e riprova.",
     "lowBadge": "Bassa",
     "table": {
       "product": "Prodotto",
@@ -184,7 +187,8 @@
     "noActivity": "Nessuna variazione di scorte ancora.",
     "errors": {
       "saveFailed": "Impossibile salvare il prodotto.",
-      "saveChangesFailed": "Impossibile salvare le modifiche."
+      "saveChangesFailed": "Impossibile salvare le modifiche.",
+      "loadFailed": "Impossibile caricare questo prodotto."
     }
   },
   "categories": {

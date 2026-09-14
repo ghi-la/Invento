@@ -34,6 +34,7 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import QuantityStepper from "@/components/QuantityStepper";
 import ProductForm from "@/components/ProductForm";
 import { useWarehouse } from "@/components/WarehouseContext";
@@ -45,7 +46,7 @@ export default function ProductDetailPage() {
   const router = useRouter();
   const { can } = useWarehouse();
 
-  const { data: product, isLoading, mutate } = useSWR(
+  const { data: product, error: loadError, isLoading, mutate } = useSWR(
     `/api/warehouses/${warehouseId}/products/${productId}`
   );
   const { data: activity } = useSWR(
@@ -81,6 +82,23 @@ export default function ProductDetailPage() {
     } finally {
       setDeleting(false);
     }
+  }
+
+  if (loadError) {
+    return (
+      <Box sx={{ maxWidth: 640, mx: "auto", textAlign: "center", py: 8 }}>
+        <ErrorOutlineIcon sx={{ fontSize: 48, color: "error.main", mb: 2 }} />
+        <Typography variant="h6" fontWeight={700}>
+          {t("product.errors.loadFailed")}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          {t("inventory.errorBody")}
+        </Typography>
+        <Button variant="outlined" onClick={() => mutate()}>
+          {t("common.retry")}
+        </Button>
+      </Box>
+    );
   }
 
   if (isLoading || !product) {

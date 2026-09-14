@@ -13,6 +13,7 @@
     "noMatches": "No matches.",
     "lowStock": "Low stock",
     "viewDetails": "View details",
+    "retry": "Retry",
     "noAccessTitle": "You don't have access to this page",
     "noAccessBody": "Ask a warehouse admin if you need this.",
     "fields": {
@@ -142,6 +143,8 @@
     "noMatchBody": "Try a different search or clear filters.",
     "emptyTitle": "No inventory yet",
     "emptyBody": "Add your first product, or import a CSV from another system.",
+    "errorTitle": "Couldn't load inventory",
+    "errorBody": "Check your connection and try again.",
     "lowBadge": "Low",
     "table": {
       "product": "Product",
@@ -184,7 +187,8 @@
     "noActivity": "No stock changes yet.",
     "errors": {
       "saveFailed": "Could not save product.",
-      "saveChangesFailed": "Could not save changes."
+      "saveChangesFailed": "Could not save changes.",
+      "loadFailed": "Couldn't load this product."
     }
   },
   "categories": {
