@@ -17,6 +17,8 @@ import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import CategorySelect from "@/components/CategorySelect";
 import PhotoUpload from "@/components/PhotoUpload";
 import { UNIT_VALUES, unitLabel } from "@/lib/units";
+import { currencySymbol } from "@/lib/currency";
+import { useWarehouse } from "@/components/WarehouseContext";
 
 const BarcodeScanner = dynamic(() => import("@/components/BarcodeScanner"), { ssr: false });
 
@@ -38,6 +40,8 @@ const empty = {
 
 export default function ProductForm({ warehouseId, initial, onSubmit, submitLabel, error }) {
   const { t } = useTranslation();
+  const { warehouse } = useWarehouse();
+  const symbol = currencySymbol(warehouse?.currency);
   const [values, setValues] = useState({ ...empty, ...initial });
   const [scannerOpen, setScannerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -181,7 +185,7 @@ export default function ProductForm({ warehouseId, initial, onSubmit, submitLabe
             type="number"
             value={values.costPrice}
             onChange={(e) => set("costPrice", e.target.value)}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+            InputProps={{ startAdornment: <InputAdornment position="start">{symbol}</InputAdornment> }}
             fullWidth
           />
         </Grid>
@@ -191,7 +195,7 @@ export default function ProductForm({ warehouseId, initial, onSubmit, submitLabe
             type="number"
             value={values.sellPrice}
             onChange={(e) => set("sellPrice", e.target.value)}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+            InputProps={{ startAdornment: <InputAdornment position="start">{symbol}</InputAdornment> }}
             fullWidth
           />
         </Grid>

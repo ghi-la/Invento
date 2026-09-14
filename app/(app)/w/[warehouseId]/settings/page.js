@@ -19,9 +19,11 @@ import {
   DialogActions,
   CircularProgress,
   Skeleton,
+  Autocomplete,
 } from "@mui/material";
 import RoleGuard from "@/components/RoleGuard";
 import { useWarehouse } from "@/components/WarehouseContext";
+import { CURRENCY_CODES, currencyName, currencySymbol } from "@/lib/currency";
 
 const SWATCHES = ["#F2A93B", "#5B7FDB", "#2E7D32", "#D64545", "#9C27B0", "#00897B"];
 
@@ -44,6 +46,7 @@ function SettingsInner() {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [color, setColor] = useState(SWATCHES[0]);
+  const [currency, setCurrency] = useState(CURRENCY_CODES[0]);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -57,6 +60,7 @@ function SettingsInner() {
       setLocation(data.location || "");
       setDescription(data.description || "");
       setColor(data.color || SWATCHES[0]);
+      setCurrency(data.currency || CURRENCY_CODES[0]);
     }
   }, [data]);
 
@@ -68,7 +72,7 @@ function SettingsInner() {
       const res = await fetch(`/api/warehouses/${warehouseId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, location, description, color }),
+        body: JSON.stringify({ name, location, description, color, currency }),
       });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -116,6 +120,7 @@ function SettingsInner() {
               <Skeleton variant="rounded" height={56} />
               <Skeleton variant="rounded" height={56} />
               <Skeleton variant="rounded" height={80} />
+              <Skeleton variant="rounded" height={56} />
               <Skeleton variant="rounded" width={140} height={20} />
               <Skeleton variant="rounded" width={120} height={36} />
             </Stack>
@@ -140,6 +145,14 @@ function SettingsInner() {
                 multiline
                 minRows={2}
                 fullWidth
+              />
+              <Autocomplete
+                disableClearable
+                options={CURRENCY_CODES}
+                value={currency}
+                onChange={(e, val) => setCurrency(val)}
+                getOptionLabel={(code) => `${code} — ${currencyName(code)} (${currencySymbol(code)})`}
+                renderInput={(params) => <TextField {...params} label={t("settings.currency")} fullWidth />}
               />
               <Box>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>

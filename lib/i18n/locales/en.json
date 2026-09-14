@@ -246,6 +246,7 @@
   "settings": {
     "title": "Warehouse settings",
     "saved": "Saved.",
+    "currency": "Currency",
     "accentColor": "Accent color",
     "dangerZoneTitle": "Danger zone",
     "dangerZoneBody": "Deleting a warehouse permanently removes all its products, categories, members and history.",

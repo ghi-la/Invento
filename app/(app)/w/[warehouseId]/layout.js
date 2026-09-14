@@ -27,6 +27,7 @@ export default async function WarehouseLayout({ children, params }) {
     description: warehouseDoc.description,
     location: warehouseDoc.location,
     color: warehouseDoc.color,
+    currency: warehouseDoc.currency || "USD",
     role: membership.role,
   };
 

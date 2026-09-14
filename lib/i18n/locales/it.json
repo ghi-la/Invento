@@ -246,6 +246,7 @@
   "settings": {
     "title": "Impostazioni magazzino",
     "saved": "Salvato.",
+    "currency": "Valuta",
     "accentColor": "Colore distintivo",
     "dangerZoneTitle": "Zona pericolosa",
     "dangerZoneBody": "Eliminare un magazzino rimuove definitivamente tutti i suoi prodotti, categorie, membri e cronologia.",

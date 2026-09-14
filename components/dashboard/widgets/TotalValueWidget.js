@@ -3,10 +3,13 @@ import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { Box, Typography, Stack, Skeleton } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useWarehouse } from "@/components/WarehouseContext";
+import { formatCurrency } from "@/lib/currency";
 
 export default function TotalValueWidget() {
   const { t } = useTranslation();
   const { warehouseId } = useParams();
+  const { warehouse } = useWarehouse();
   const { data, isLoading } = useSWR(`/api/warehouses/${warehouseId}/stats`);
 
   return (
@@ -18,7 +21,7 @@ export default function TotalValueWidget() {
         <Skeleton variant="text" width={120} sx={{ fontSize: "2.125rem" }} />
       ) : (
         <Typography variant="h4" fontWeight={700} sx={{ fontFamily: '"SF Mono","Roboto Mono",monospace' }}>
-          ${(data?.totalValue || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          {formatCurrency(data?.totalValue || 0, warehouse?.currency, { maximumFractionDigits: 0 })}
         </Typography>
       )}
       <Stack direction="row" spacing={2} sx={{ mt: 1 }}>

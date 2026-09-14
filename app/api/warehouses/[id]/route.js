@@ -9,12 +9,14 @@ import StockMovement from "@/lib/models/StockMovement";
 import DashboardLayout from "@/lib/models/DashboardLayout";
 import Invitation from "@/lib/models/Invitation";
 import { requireRole } from "@/lib/apiAuth";
+import { CURRENCY_CODES } from "@/lib/currency";
 
 const updateSchema = z.object({
   name: z.string().trim().min(1).max(120).optional(),
   description: z.string().trim().max(500).optional(),
   location: z.string().trim().max(200).optional(),
   color: z.string().trim().optional(),
+  currency: z.enum(CURRENCY_CODES).optional(),
 });
 
 export async function GET(req, { params }) {
@@ -31,6 +33,7 @@ export async function GET(req, { params }) {
     description: warehouse.description,
     location: warehouse.location,
     color: warehouse.color,
+    currency: warehouse.currency || "USD",
     role: auth.membership.role,
   });
 }

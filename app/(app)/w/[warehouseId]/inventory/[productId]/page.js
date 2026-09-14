@@ -39,12 +39,13 @@ import QuantityStepper from "@/components/QuantityStepper";
 import ProductForm from "@/components/ProductForm";
 import { useWarehouse } from "@/components/WarehouseContext";
 import { unitLabel, formatQuantity } from "@/lib/units";
+import { formatCurrency } from "@/lib/currency";
 
 export default function ProductDetailPage() {
   const { t } = useTranslation();
   const { warehouseId, productId } = useParams();
   const router = useRouter();
-  const { can } = useWarehouse();
+  const { can, warehouse } = useWarehouse();
 
   const { data: product, error: loadError, isLoading, mutate } = useSWR(
     `/api/warehouses/${warehouseId}/products/${productId}`
@@ -212,8 +213,14 @@ export default function ProductDetailPage() {
                 {product.unit === "box" && product.itemsPerBox > 0 && (
                   <DetailField label={t("product.itemsPerBox")} value={product.itemsPerBox} />
                 )}
-                <DetailField label={t("product.costPrice")} value={product.costPrice ? `$${product.costPrice}` : ""} />
-                <DetailField label={t("product.sellPrice")} value={product.sellPrice ? `$${product.sellPrice}` : ""} />
+                <DetailField
+                  label={t("product.costPrice")}
+                  value={product.costPrice ? formatCurrency(product.costPrice, warehouse?.currency) : ""}
+                />
+                <DetailField
+                  label={t("product.sellPrice")}
+                  value={product.sellPrice ? formatCurrency(product.sellPrice, warehouse?.currency) : ""}
+                />
               </Grid>
               {product.notes && (
                 <>
